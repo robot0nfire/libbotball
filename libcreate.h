@@ -22,3 +22,11 @@ void create_drive_straight(const unsigned short& speed, const short& millimeters
   	create_stop();
   
 }
+
+void create_stop() {
+	create_write_byte(OI_DRIVE_DIRECT);
+  	create_write_byte(HIGH_BYTE(0));
+  	create_write_byte(LOW_BYTE(0));
+  	create_write_byte(HIGH_BYTE(0));
+	create_write_byte(LOW_BYTE(0));
+}
