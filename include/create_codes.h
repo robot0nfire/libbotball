@@ -1,5 +1,5 @@
-#ifndef _CREATE_CODES_H_
-#define _CREATE_CODES_H_
+#ifndef CREATE_CODES_H /* Include guard* */
+#define CREATE_CODES_H
 
 #define OI_START 128
 #define OI_BAUD 129
@@ -48,4 +48,4 @@
 #define OI_CURRENT 23
 #define OI_CARGO_BAY_DIGITAL_INPUTS 32
 
-#endif
+#endif /* CREATE_CODES_H */
