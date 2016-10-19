@@ -31,10 +31,10 @@ void create_drives_straight_auto(const short millimeters) {
     create_stop();
 }
 
-void create_drives_straight(const unsigned short speed, const short millimeters) {
-    double timeToGoal = (double) ((float) millimeters / (float) speed);
+void create_drives_straight(const unsigned short velocity, const short millimeters) {
+    double timeToGoal = (double) ((float) millimeters / (float) velocity);
 
-    create_drives_direct(speed, speed);
+    create_drives_direct(velocity, velocity);
     msleep(timeToGoal * 1000);
     create_stop();
 
