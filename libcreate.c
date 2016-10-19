@@ -47,6 +47,18 @@ void create_drives_straight(const unsigned short velocity, const short millimete
 
 }
 
+void create_spins_direct(const short speed, const short direction) {
+    create_drives(speed, (direction > 0) ? 1 : -1);
+}
+
+void create_spins_clockwise(const short speed) {
+    create_spins_direct(speed, -1);
+}
+
+void create_spins_counterclockwise(const short speed) {
+    create_spins_direct(speed, 1);
+}
+
 void create_setup() {
     init_list(10, 70);
     insert_sorted(20, 80);
