@@ -22,6 +22,14 @@ void create_stop() {
     create_write_byte(LOW_BYTE(0));
 }
 
+void create_drives_straight_auto(const short millimeters) {
+    int velocity = get_velocity(millimeters);
+    double timeToGoal = (double) ((float) millimeters / (float) velocity);
+
+    create_drives_direct(velocity, velocity);
+    msleep(timeToGoal * 1000);
+    create_stop();
+}
 
 void create_drives_straight(const unsigned short speed, const short millimeters) {
     double timeToGoal = (double) ((float) millimeters / (float) speed);
