@@ -3,6 +3,13 @@
 #include "include/create_codes.h"
 #include "include/create_velocities.h"
 
+void create_drives(const short velocity, const short radius) {
+    create_write_byte(OI_DRIVE);
+    create_write_byte(HIGH_BYTE(velocity));
+    create_write_byte(LOW_BYTE(velocity));
+    create_write_byte(HIGH_BYTE(radius));
+    create_write_byte(LOW_BYTE(radius));
+}
 
 void create_drives_direct(const short speed_l, const short speed_r) {
 
