@@ -47,19 +47,31 @@ void create_drives_straight(const unsigned short velocity, const short millimete
 
 }
 
-void create_spins_direct(const short speed, const short direction) {
+void create_spins_direct(const unsigned short speed, const short direction) {
     create_drives(speed, (direction > 0) ? 1 : -1);
 }
 
-void create_spins_clockwise(const short speed) {
+void create_spins_clockwise(const unsigned short speed) {
     create_spins_direct(speed, -1);
 }
 
-void create_spins_counterclockwise(const short speed) {
+void create_spins_counterclockwise(const unsigned short speed) {
     create_spins_direct(speed, 1);
 }
 
+void create_spins_degrees(const unsigned short speed, const short degree) {
+    double oneDegree = CIRCUMFERENCE / 360;
+    double mm = oneDegree * abs(degree);
+
+    double timeToGoal = mm / (speed + 75);
+
+    create_spins_direct(speed, degree);
+    msleep(timeToGoal * 1000);
+    create_stop();
+}
+
 void create_setup() {
+    create_write_byte(OI_FULL);
     init_list(10, 70);
     insert_sorted(20, 80);
     insert_sorted(30, 80);
@@ -69,4 +81,9 @@ void create_setup() {
     insert_sorted(150, 250);
     insert_sorted(200, 300);
     insert_sorted(300, 310);
+}
+
+void create_shutdown() {
+    create_stop();
+    create_write_byte(OI_SAFE);
 }
