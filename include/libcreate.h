@@ -17,7 +17,7 @@ void create_drives_straight_auto(const short millimeters);
 void create_spins_direct(const unsigned short speed, const short direction);
 void create_spins_clockwise(const unsigned short speed);
 void create_spins_counterclockwise(const unsigned short speed);
-void create_spins_degrees(const short speed, const unsigned short degree);
+void create_spins_degrees(const unsigned short speed, const short degree);
 
 void create_setup();
 void create_shutdown();
