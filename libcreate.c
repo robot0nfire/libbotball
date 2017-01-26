@@ -52,11 +52,11 @@ void create_spins_direct(const unsigned short speed, const short direction) {
 }
 
 void create_spins_clockwise(const unsigned short speed) {
-    create_spins_direct(speed, -1);
+    create_spins_direct(speed, 1);
 }
 
 void create_spins_counterclockwise(const unsigned short speed) {
-    create_spins_direct(speed, 1);
+    create_spins_direct(speed, -1);
 }
 
 void create_spins_degrees(const unsigned short speed, const short degree) {
