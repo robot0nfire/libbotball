@@ -48,7 +48,7 @@ void create_drives_straight(const unsigned short velocity, const short millimete
 }
 
 void create_spins_direct(const unsigned short speed, const short direction) {
-    create_drives(speed, (direction > 0) ? 1 : -1);
+    create_drives(speed, (direction > 0) ? -1 : 1);
 }
 
 void create_spins_clockwise(const unsigned short speed) {
@@ -63,7 +63,7 @@ void create_spins_degrees(const unsigned short speed, const short degree) {
     double oneDegree = CIRCUMFERENCE / 360;
     double mm = oneDegree * abs(degree);
 
-    double timeToGoal = mm / (speed + 75);
+    double timeToGoal = mm / (speed + 8);
 
     create_spins_direct(speed, degree);
     msleep(timeToGoal * 1000);
