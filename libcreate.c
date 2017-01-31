@@ -60,33 +60,14 @@ void create_spins_direct(const unsigned short speed, const short direction) {
     create_drives(speed, (direction > 0) ? -1 : 1);
 }
 
-/**
-* @brief This method spins the Create clockwise at a given speed
-* @author Nico Kratky
-*
-* @param speed Speed at which the Create should spin
-*/
 void create_spins_clockwise(const unsigned short speed) {
     create_spins_direct(speed, 1);
 }
 
-/**
-* @brief This method spins the Create counter-clockwise at a given speed
-* @author Nico Kratky
-*
-* @param speed Speed at which the Create should spin
-*/
 void create_spins_counterclockwise(const unsigned short speed) {
     create_spins_direct(speed, -1);
 }
 
-/**
-* @brief This method spins the Create at a given speed to a given angle
-* @author Nico Kratky
-*
-* @param speed Speed at which the Create should spin
-* @param angle Angle to which the Create should spin, If positive the Create will spin clockwise, otherwise it will spin counter-clockwise
-*/
 void create_spins_degrees(const unsigned short speed, const short angle) {
     double oneDegree = CIRCUMFERENCE / 360;
     double mm = oneDegree * abs(angle);
@@ -98,10 +79,6 @@ void create_spins_degrees(const unsigned short speed, const short angle) {
     create_stop();
 }
 
-/**
-* @brief Setup process which is required to be executed directly after connecting to the Create
-* @author Nico Kratky
-*/
 void create_setup() {
     create_write_byte(OI_FULL);
     init_list(10, 70);
@@ -115,10 +92,6 @@ void create_setup() {
     insert_sorted(300, 310);
 }
 
-/**
-* @brief This method shuts the Create down
-* @author Nico Kratky
-*/
 void create_shutdown() {
     create_stop();
     create_write_byte(OI_SAFE);
