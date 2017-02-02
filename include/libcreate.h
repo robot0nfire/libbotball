@@ -42,7 +42,7 @@ void create_stop();
 * @brief This method drives a given distance at a given speed, all in a straight line.
 * @author Nico Kratky
 *
-* @param velocity Velocity at which the Create should drive
+* @param speed Speed at which the Create should drive
 * @param millimeters Distance in mm which should be driven
 */
 void create_drives_straight(const unsigned short speed, const short millimeters);
@@ -82,7 +82,7 @@ void create_spins_counterclockwise(const unsigned short speed);
 * @author Nico Kratky
 *
 * @param speed Speed at which the Create should spin
-* @param angle Angle to which the Create should spin, If positive the Create will spin clockwise, otherwise it will spin counter-clockwise
+* @param degree Angle to which the Create should spin, If positive the Create will spin clockwise, otherwise it will spin counter-clockwise
 */
 void create_spins_degrees(const unsigned short speed, const short degree);
 

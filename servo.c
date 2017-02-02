@@ -11,10 +11,19 @@
 #include "include/servo.h"
 
 /**
-* Season specific parameters for moving servos asynchronously
+* @brief Stepsize for moving the servo asyncronously
+* Season specific parameter for moving servos asynchronously
 */
 #define servoTickSize 10
+/**
+* @brief Sleep for moving the servo asyncronously
+* Season specific parameter for moving servos asynchronously
+*/
 #define servoSleep 17
+/**
+* @brief Shorter sleep for moving the servo asyncronously
+* Season specific parameter for moving servos asynchronously
+*/
 #define servoSleepShort 10
 
 void servo_get_seek_time(unsigned int currentPosition, unsigned int finalPosition) {
@@ -23,7 +32,7 @@ void servo_get_seek_time(unsigned int currentPosition, unsigned int finalPositio
     return (int)(((ticks_to_move * degreesPerTick * timePerDegree) / calcDivisor) / calcDivisor);
 }
 
-void ssp(unsigned int port, int position) {
+void ssp(unsigned int port, unsigned int position) {
     int oldPos = get_servo_position(port);
 
     if(position > servoMaxTicks) {

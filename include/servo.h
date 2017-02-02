@@ -10,21 +10,48 @@
 #ifndef SERVO_H /* Include guard */
 #define SERVO_H
 
+/**
+* @brief Minimum ticks to which servos should be moved
+*/
 #define servoMinTicks 0
+/**
+* @brief Maximum ticks to which servos should be moved
+*/
 #define servoMaxTicks 2047
 
-//for seek time calculation
+/**
+* @brief Parameters for seek time calculation
+* see http://www.servodatabase.com/servo/towerpro/sg-5010 for further information
+*/
 #define degreesPerTick 8789
+/**
+* @brief Parameters for seek time calculation
+* see http://www.servodatabase.com/servo/towerpro/sg-5010 for further information
+*/
 #define timePerDegree 283333
+/**
+* @brief Parameters for seek time calculation
+* see http://www.servodatabase.com/servo/towerpro/sg-5010 for further information
+*/
 #define calcDivisor  100000
 
 int servoBlocked[4] = {0, 0, 0, 0};
 int servoPositions[4] = {0, 0, 0, 0};
 
+/**
+* @brief Get status of servo
+*
+* @param servo Port to which the servo is connected
+*/
 int is_blocked(int servo){
     return servoBlocked[servo];
 }
 
+/**
+* @brief Wait till servo has finished moving
+*
+* @param servo Port to which the servo is connected
+*/
 void wait_for_servo(int servo){
     while(servoBlocked[servo]){
         msleep(1);
@@ -57,6 +84,7 @@ void ssp(unsigned int port, unsigned int position);
 * @param port The port at which the servo is connected to the wallaby
 * @param position The position to which the servo should be moved
 * @param stepsize How 'slow' the servo should be moved
+* @param sleep How long the servo sleeps in between steps
 */
 void ssp_stepwise(unsigned int port, unsigned int position, unsigned int stepsize, unsigned int sleep);
 
