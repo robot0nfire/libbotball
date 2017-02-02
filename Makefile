@@ -1,5 +1,7 @@
+SRC := $(wildcard '*.c')
+
 all:
-	gcc libbotball.c libcreate.c create_velocities.c -shared -fPIC -lwallaby -o libbotball.so
+	gcc $(SRC) -shared -fPIC -lwallaby -o libbotball.so
 
 install:
 	ln -sf $$PWD/libbotball.so /usr/lib/
