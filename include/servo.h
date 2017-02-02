@@ -35,8 +35,20 @@
 */
 #define calcDivisor  100000
 
-int servoBlocked[4] = {0, 0, 0, 0};
-int servoPositions[4] = {0, 0, 0, 0};
+/**
+* @brief Properties Array for moving servos asynchronously.
+* Dimensions represent the different servos
+* 0: servo blocked status. 0 = not blocked; 1 = blocked
+* 1: position to which the servo will be moved
+* 2: stepsize which should be used to move the servo stepwise. If set to -1 the servo will be moved normally
+* 3: sleep which should be used to move the servo stepwise. If set to -1 the servo will be moved normally
+*/
+int servoProperties[4][4] = {
+    {0, 0, -1, -1},
+    {0, 0, -1, -1},
+    {0, 0, -1, -1},
+    {0, 0, -1, -1}
+};
 
 /**
 * @brief Get status of servo
@@ -44,7 +56,7 @@ int servoPositions[4] = {0, 0, 0, 0};
 * @param servo Port to which the servo is connected
 */
 int is_blocked(int servo){
-    return servoBlocked[servo];
+    return servoProperties[servo][0];
 }
 
 /**
@@ -53,7 +65,7 @@ int is_blocked(int servo){
 * @param servo Port to which the servo is connected
 */
 void wait_for_servo(int servo){
-    while(servoBlocked[servo]){
+    while(servoProperties[servo][0]){
         msleep(1);
     }
 }
@@ -101,26 +113,38 @@ void ssp_asym(unsigned int port1, unsigned int port2, unsigned int position);
 /**
 * @brief This method moves servo 1 to the position defined in the positions array
 * @author Nico Kratky
+*
+* @param stepsize How 'slow' the servo should be moved. If set to -1 the servo will not be moved stepwise
+* @param sleep How long the servo sleeps in between steps. If set to -1 the servo will not be moved stepwise
 */
-void setServo0();
+void setServo0(unsigned int stepsize, unsigned int sleep);
 
 /**
 * @brief This method moves servo 2 to the position defined in the positions array
 * @author Nico Kratky
+*
+* @param stepsize How 'slow' the servo should be moved. If set to -1 the servo will not be moved stepwise
+* @param sleep How long the servo sleeps in between steps. If set to -1 the servo will not be moved stepwise
 */
-void setServo1();
+void setServo1(unsigned int stepsize, unsigned int sleep);
 
 /**
 * @brief This method moves servo 3 to the position defined in the positions array
 * @author Nico Kratky
+*
+* @param stepsize How 'slow' the servo should be moved. If set to -1 the servo will not be moved stepwise
+* @param sleep How long the servo sleeps in between steps. If set to -1 the servo will not be moved stepwise
 */
-void setServo2();
+void setServo2(unsigned int stepsize, unsigned int sleep);
 
 /**
 * @brief This method moves servo 4 to the position defined in the positions array
 * @author Nico Kratky
+*
+* @param stepsize How 'slow' the servo should be moved. If set to -1 the servo will not be moved stepwise
+* @param sleep How long the servo sleeps in between steps. If set to -1 the servo will not be moved stepwise
 */
-void setServo3();
+void setServo3(unsigned int stepsize, unsigned int sleep);
 
 /**
 * @brief This method moves the given servo asynchronously to the desired position
@@ -138,6 +162,6 @@ void ssp_async(unsigned int port, unsigned int position);
 * @param port The port at which the servo is connected to the wallaby
 * @param position The position to which the servo should be moved
 */
-void ssp_stepwise_async(unsigned int port, unsigned int position);
+void ssp_stepwise_async(unsigned int port, unsigned int position, unsigned int stepsize, unsigned int sleep);
 
 #endif /* SERVO_H */

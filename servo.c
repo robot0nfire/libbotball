@@ -10,22 +10,6 @@
 #include <kipr/botball.h>
 #include "include/servo.h"
 
-/**
-* @brief Stepsize for moving the servo asyncronously
-* Season specific parameter for moving servos asynchronously
-*/
-#define servoTickSize 10
-/**
-* @brief Sleep for moving the servo asyncronously
-* Season specific parameter for moving servos asynchronously
-*/
-#define servoSleep 17
-/**
-* @brief Shorter sleep for moving the servo asyncronously
-* Season specific parameter for moving servos asynchronously
-*/
-#define servoSleepShort 10
-
 void servo_get_seek_time(unsigned int currentPosition, unsigned int finalPosition) {
     int ticks_to_move = (currentPosition > finalPosition)? currentPosition - finalPosition : finalPosition - currentPosition;
 
@@ -94,35 +78,80 @@ void ssp_asym(unsigned int port1, unsigned int port2, unsigned int position) {
     printf("Moved servoB to position: %d\n", get_servo_position(port2));
 }
 
-void setServo0(){
-    printf("Move Servo 0 to %d", servoPositions[0]);
-    ssp_stepwise(0, servoPositions[0], servoTickSize, servoSleep);
-    servoBlocked[0] = 0;
+void setServo0(unsigned int stepsize, unsigned int sleep) {
+    printf("Move Servo 0 to %d", servoProperties[0][1]);
+
+    if(servoProperties[0][2] == -1 || servoProperties[0][3] == -1)
+        ssp(0, servoProperties[1]);
+    else
+        ssp_stepwise(0, servoProperties[1], servoProperties[2], servoProperties[3]);
+
+    servoProperties[0][0] = 0;
 }
 
-void setServo1(){
-    printf("Move Servo 1 to %d", servoPositions[1]);
-    ssp_stepwise(1, servoPositions[1], servoTickSize, servoSleep);
-    servoBlocked[1] = 0;
+void setServo1(unsigned int stepsize, unsigned int sleep) {
+    printf("Move Servo 1 to %d", servoProperties[1][1]);
+
+    if(servoProperties[1][2] == -1 || servoProperties[1][3] == -1)
+        ssp(1, servoProperties[1]);
+    else
+        ssp_stepwise(1, servoProperties[1], servoProperties[2], servoProperties[3]);
+
+    servoProperties[1][0] = 0;
 }
 
-void setServo2(){
-    printf("Move Servo 2 to %d", servoPositions[2]);
-    ssp_stepwise(2, servoPositions[2], servoTickSize, servoSleepShort);
-    servoBlocked[2] = 0;
+void setServo2(unsigned int stepsize, unsigned int sleep) {
+    printf("Move Servo 2 to %d", servoProperties[2][1]);
+
+    if(servoProperties[2][2] == -1 || servoProperties[2][3] == -1)
+        ssp(2, servoProperties[1]);
+    else
+        ssp_stepwise(2, servoProperties[1], servoProperties[2], servoProperties[3]);
+
+    servoProperties[2][0] = 0;
 }
 
-void setServo3(){
-    printf("Move Servo 3 to %d", servoPositions[3]);
-    ssp_stepwise(3, servoPositions[3], servoTickSize, servoSleep);
-    servoBlocked[3] = 0;
+void setServo3(unsigned int stepsize, unsigned int sleep) {
+    printf("Move Servo 3 to %d", servoProperties[3][1]);
+
+    if(servoProperties[3][2] == -1 || servoProperties[3][3] == -1)
+        ssp(3, servoProperties[1]);
+    else
+        ssp_stepwise(3, servoProperties[1], servoProperties[2], servoProperties[3]);
+
+    servoProperties[3][0] = 0;
 }
 
 void ssp_async(unsigned int port, unsigned int position) {
     wait_for_servo(port);
 
-    servoBlocked[port] = 1;
-    servoPositions[port] = position;
+    servoProperties[port][0] = 1;
+    servoProperties[port][1] = position;
+    servoProperties[port][2] = -1;
+    servoProperties[port][3] = -1;
+
+    thread run;
+    if(servo == 0){
+        run = thread_create(setServo0);
+    } else if(servo == 1){
+        run = thread_create(setServo1);
+    } else if(servo == 2){
+        run = thread_create(setServo2);
+    } else if(servo == 3){
+        run = thread_create(setServo3);
+    }
+
+    thread_start(run);
+    printf("Started Servo thread\n");
+}
+
+void ssp_stepwise_async(unsigned int port, unsigned int position, unsigned int stepsize, unsigned int sleep) {
+    wait_for_servo(port);
+
+    servoProperties[port][0] = 1;
+    servoProperties[port][1] = position;
+    servoProperties[port][2] = stepsize;
+    servoProperties[port][3] = sleep;
 
     thread run;
     if(servo == 0){
