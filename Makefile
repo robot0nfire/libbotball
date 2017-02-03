@@ -1,4 +1,4 @@
-SRC := $(wildcard '*.c')
+SRC := $(wildcard *.c)
 
 all:
 	gcc $(SRC) -shared -fPIC -lwallaby -o libbotball.so
