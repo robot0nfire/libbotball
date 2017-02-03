@@ -78,7 +78,7 @@ void wait_for_servo(int servo){
 * @param currentPosition Position in ticks at which the servo currenty is
 * @param finalPosition Position in ticks to which the servo will be moved
 */
-void servo_get_seek_time(unsigned int currentPosition, unsigned int finalPosition);
+int servo_get_seek_time(unsigned int currentPosition, unsigned int finalPosition);
 
 /**
 * @brief This method moves the given servo to the desired position
