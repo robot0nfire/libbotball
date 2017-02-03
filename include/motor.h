@@ -7,8 +7,8 @@
 * @date 2/2/2017
 */
 
-#ifndef SERVO_H /* Include guard */
-#define SERVO_H
+#ifndef MOTOR_H /* Include guard */
+#define MOTOR_H
 
 /**
 * @brief Port to which the left driving motor is connected
@@ -69,4 +69,4 @@ void drive(int velocity_left, int velocity_right, unsigned int ms);
 */
 void follow_line(unsigned int ms);
 
-#endif /* SERVO_H */
+#endif /* MOTOR_H */
