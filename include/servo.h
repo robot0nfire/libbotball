@@ -20,22 +20,6 @@
 #define servoMaxTicks 2047
 
 /**
-* @brief Parameters for seek time calculation
-* see http://www.servodatabase.com/servo/towerpro/sg-5010 for further information
-*/
-#define degreesPerTick 8789
-/**
-* @brief Parameters for seek time calculation
-* see http://www.servodatabase.com/servo/towerpro/sg-5010 for further information
-*/
-#define timePerDegree 283333
-/**
-* @brief Parameters for seek time calculation
-* see http://www.servodatabase.com/servo/towerpro/sg-5010 for further information
-*/
-#define calcDivisor  100000
-
-/**
 * @brief Properties Array for moving servos asynchronously.
 * Dimensions represent the different servos
 * 0: servo blocked status. 0 = not blocked; 1 = blocked
@@ -69,16 +53,6 @@ static void wait_for_servo(int servo){
         msleep(1);
     }
 }
-
-/**
-* @brief Calculates the time in ms to wait before the whole movement of the servo is done at lowest energy level
-* http://www.servodatabase.com/servo/towerpro/sg-5010 - servo data sheet
-* @author Nico Kratky
-*
-* @param currentPosition Position in ticks at which the servo currenty is
-* @param finalPosition Position in ticks to which the servo will be moved
-*/
-int servo_get_seek_time(unsigned int currentPosition, unsigned int finalPosition);
 
 /**
 * @brief This method moves the given servo to the desired position

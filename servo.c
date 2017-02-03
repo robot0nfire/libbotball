@@ -10,12 +10,6 @@
 #include <kipr/botball.h>
 #include "include/servo.h"
 
-int servo_get_seek_time(unsigned int currentPosition, unsigned int finalPosition) {
-    int ticks_to_move = (currentPosition > finalPosition)? currentPosition - finalPosition : finalPosition - currentPosition;
-
-    return (int)(((ticks_to_move * degreesPerTick * timePerDegree) / calcDivisor) / calcDivisor);
-}
-
 void ssp(unsigned int port, unsigned int position) {
     int oldPos = get_servo_position(port);
 
@@ -26,8 +20,7 @@ void ssp(unsigned int port, unsigned int position) {
     }
 
     set_servo_position(port, position);
-    msleep(500);
-    printf("%d\n", servo_get_seek_time(oldPos, position));
+    msleep(100);
 
     printf("Moved servo to position: %d\n", get_servo_position(port));
 }
