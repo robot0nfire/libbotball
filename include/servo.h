@@ -43,7 +43,7 @@
 * 2: stepsize which should be used to move the servo stepwise. If set to -1 the servo will be moved normally
 * 3: sleep which should be used to move the servo stepwise. If set to -1 the servo will be moved normally
 */
-int servoProperties[4][4] = {
+static int servoProperties[4][4] = {
     {0, 0, -1, -1},
     {0, 0, -1, -1},
     {0, 0, -1, -1},
@@ -55,7 +55,7 @@ int servoProperties[4][4] = {
 *
 * @param servo Port to which the servo is connected
 */
-int is_blocked(int servo){
+static int is_blocked(int servo){
     return servoProperties[servo][0];
 }
 
@@ -64,7 +64,7 @@ int is_blocked(int servo){
 *
 * @param servo Port to which the servo is connected
 */
-void wait_for_servo(int servo){
+static void wait_for_servo(int servo){
     while(servoProperties[servo][0]){
         msleep(1);
     }
