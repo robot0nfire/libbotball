@@ -1,4 +1,4 @@
-/**
+#/**
 * @file servo.c
 * @brief This file provides functions to interact with the Botball servos.
 *
@@ -20,12 +20,12 @@ void ssp(unsigned int port, unsigned int position) {
     }
 
     set_servo_position(port, position);
-    msleep(100);
+    msleep(300);
 
     printf("Moved servo to position: %d\n", get_servo_position(port));
 }
 
-void ssp_stepwise(unsigned int port, unsigned int position, unsigned int stepsize, unsigned int sleep) {
+void ssp_stepwise(unsigned int port, int position, unsigned int stepsize, unsigned int sleep) {
     if(position > servoMaxTicks) {
         position = servoMaxTicks;
     } else if(position < servoMinTicks) {
@@ -37,15 +37,15 @@ void ssp_stepwise(unsigned int port, unsigned int position, unsigned int stepsiz
     if(position == currentPosition) { return; }
 
     if(position > currentPosition) {
-        while(position != currentPosition) {
-            currentPosition = ((currentPosition + stepsize) > position) ? position : (currentPosition + stepsize);
-            ssp(port, currentPosition);
+        while(position > currentPosition) {
+            currentPosition = ((int) (currentPosition + stepsize) > position) ? position : (currentPosition + stepsize);
+            set_servo_position(port, currentPosition);
             msleep(sleep);
         }
     } else {
-        while(position != currentPosition){
-            currentPosition = ((currentPosition - stepsize) < position) ? position : (currentPosition - stepsize);
-            ssp(port, currentPosition);
+        while(position < currentPosition) {
+            currentPosition = ((int) (currentPosition - stepsize) < position) ? position : (currentPosition - stepsize);
+            set_servo_position(port, currentPosition);
             msleep(sleep);
         }
     }
@@ -93,7 +93,7 @@ void ssp_stepwise_asym(unsigned int port1, unsigned int port2, unsigned int posi
     printf("Moved servoB to position: %d\n", get_servo_position(port2));
 }
 
-void setServo0(unsigned int stepsize, unsigned int sleep) {
+void setServo0() {
     printf("Move Servo 0 to %d", servoProperties[0][1]);
 
     if(servoProperties[0][2] == -1 || servoProperties[0][3] == -1)
@@ -104,7 +104,7 @@ void setServo0(unsigned int stepsize, unsigned int sleep) {
     servoProperties[0][0] = 0;
 }
 
-void setServo1(unsigned int stepsize, unsigned int sleep) {
+void setServo1() {
     printf("Move Servo 1 to %d", servoProperties[1][1]);
 
     if(servoProperties[1][2] == -1 || servoProperties[1][3] == -1)
@@ -115,7 +115,7 @@ void setServo1(unsigned int stepsize, unsigned int sleep) {
     servoProperties[1][0] = 0;
 }
 
-void setServo2(unsigned int stepsize, unsigned int sleep) {
+void setServo2() {
     printf("Move Servo 2 to %d", servoProperties[2][1]);
 
     if(servoProperties[2][2] == -1 || servoProperties[2][3] == -1)
@@ -126,7 +126,7 @@ void setServo2(unsigned int stepsize, unsigned int sleep) {
     servoProperties[2][0] = 0;
 }
 
-void setServo3(unsigned int stepsize, unsigned int sleep) {
+void setServo3() {
     printf("Move Servo 3 to %d", servoProperties[3][1]);
 
     if(servoProperties[3][2] == -1 || servoProperties[3][3] == -1)

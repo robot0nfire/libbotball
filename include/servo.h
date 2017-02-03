@@ -72,7 +72,7 @@ void ssp(unsigned int port, unsigned int position);
 * @param stepsize How 'slow' the servo should be moved
 * @param sleep How long the servo sleeps in between steps
 */
-void ssp_stepwise(unsigned int port, unsigned int position, unsigned int stepsize, unsigned int sleep);
+void ssp_stepwise(unsigned int port, int position, unsigned int stepsize, unsigned int sleep);
 
 /**
 * @brief This method moves two given servos asymmetrically to the given position
@@ -103,7 +103,7 @@ void ssp_stepwise_asym(unsigned int port1, unsigned int port2, unsigned int posi
 * @param stepsize How 'slow' the servo should be moved. If set to -1 the servo will not be moved stepwise
 * @param sleep How long the servo sleeps in between steps. If set to -1 the servo will not be moved stepwise
 */
-void setServo0(unsigned int stepsize, unsigned int sleep);
+void setServo0();
 
 /**
 * @brief This method moves servo 2 to the position defined in the positions array
@@ -112,7 +112,7 @@ void setServo0(unsigned int stepsize, unsigned int sleep);
 * @param stepsize How 'slow' the servo should be moved. If set to -1 the servo will not be moved stepwise
 * @param sleep How long the servo sleeps in between steps. If set to -1 the servo will not be moved stepwise
 */
-void setServo1(unsigned int stepsize, unsigned int sleep);
+void setServo1();
 
 /**
 * @brief This method moves servo 3 to the position defined in the positions array
@@ -121,7 +121,7 @@ void setServo1(unsigned int stepsize, unsigned int sleep);
 * @param stepsize How 'slow' the servo should be moved. If set to -1 the servo will not be moved stepwise
 * @param sleep How long the servo sleeps in between steps. If set to -1 the servo will not be moved stepwise
 */
-void setServo2(unsigned int stepsize, unsigned int sleep);
+void setServo2();
 
 /**
 * @brief This method moves servo 4 to the position defined in the positions array
@@ -130,7 +130,7 @@ void setServo2(unsigned int stepsize, unsigned int sleep);
 * @param stepsize How 'slow' the servo should be moved. If set to -1 the servo will not be moved stepwise
 * @param sleep How long the servo sleeps in between steps. If set to -1 the servo will not be moved stepwise
 */
-void setServo3(unsigned int stepsize, unsigned int sleep);
+void setServo3();
 
 /**
 * @brief This method moves the given servo asynchronously to the desired position
