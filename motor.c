@@ -7,6 +7,9 @@
 * @date 2/2/2017
 */
 
+#include <kipr/botball.h>
+#include "include/motor.h"
+
 void drive_direct(int velocity_left, int velocity_right) {
     mav(LEFT_MOTOR_DRIVE, velocity_left);
     mav(RIGHT_MOTOR_DRIVE, velocity_right);
