@@ -1,7 +1,9 @@
+CFLAGS := 
+
 SRC := $(wildcard *.c)
 
 all:
-	gcc $(SRC) -shared -fPIC -lwallaby -o libbotball.so
+	gcc $(CFLAGS) $(SRC) -shared -fPIC -lwallaby -o libbotball.so
 
 install:
 	ln -sf $$PWD/libbotball.so /usr/lib/
