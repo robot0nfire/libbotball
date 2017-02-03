@@ -94,7 +94,7 @@ void ssp_asym(unsigned int port1, unsigned int port2, unsigned int position);
 * @param stepsize How 'slow' the servos should be moved
 * @param sleep How long the servos sleep in between steps
 */
-void ssp_stepwise_asym(unsigned int port1, unsigned int port2, unsigned int position, unsigned int stepsize, unsigned int sleep);
+void ssp_stepwise_asym(unsigned int port1, unsigned int port2, int position, unsigned int stepsize, unsigned int sleep);
 
 /**
 * @brief This method moves servo 1 to the position defined in the positions array

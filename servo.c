@@ -64,15 +64,15 @@ void ssp_asym(unsigned int port1, unsigned int port2, unsigned int position) {
     wait_for_servo(port1);
     wait_for_servo(port2);
 
-    ssp(port1, pos1);
-    ssp(port2, pos2);
+    set_servo_position(port1, pos1);
+    set_servo_position(port2, pos2);
     msleep(300);
 
     printf("Moved servoA to position: %d\n", get_servo_position(port1));
     printf("Moved servoB to position: %d\n", get_servo_position(port2));
 }
 
-void ssp_stepwise_asym(unsigned int port1, unsigned int port2, unsigned int position, unsigned int stepsize, unsigned int sleep) {
+void ssp_stepwise_asym(unsigned int port1, unsigned int port2, int position, unsigned int stepsize, unsigned int sleep) {
     if(position > servoMaxTicks) {
         position = servoMaxTicks;
     } else if(position < servoMinTicks) {
@@ -85,9 +85,25 @@ void ssp_stepwise_asym(unsigned int port1, unsigned int port2, unsigned int posi
     wait_for_servo(port1);
     wait_for_servo(port2);
 
-    ssp_stepwise(port1, pos1, stepsize, sleep);
-    ssp_stepwise(port2, pos2, stepsize, sleep);
-    msleep(300);
+    int currentPosition = get_servo_position(port1);
+
+    if(position == currentPosition) { return; }
+
+    if(position > currentPosition) {
+        while(position > currentPosition) {
+            currentPosition = ((int) (currentPosition + stepsize) > position) ? position : (currentPosition + stepsize);
+            set_servo_position(port1, currentPosition);
+            set_servo_position(port2, servoMaxTicks - currentPosition);
+            msleep(sleep);
+           }
+    } else {
+           while(position < currentPosition) {
+            currentPosition = ((int) (currentPosition - stepsize) < position) ? position : (currentPosition - stepsize);
+            set_servo_position(port1, currentPosition);
+            set_servo_position(port2, servoMaxTicks - currentPosition);
+            msleep(sleep);
+        }
+    }
 
     printf("Moved servoA to position: %d\n", get_servo_position(port1));
     printf("Moved servoB to position: %d\n", get_servo_position(port2));
