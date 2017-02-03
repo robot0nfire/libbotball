@@ -10,7 +10,7 @@
 #include <kipr/botball.h>
 #include "include/servo.h"
 
-void servo_get_seek_time(unsigned int currentPosition, unsigned int finalPosition) {
+int servo_get_seek_time(unsigned int currentPosition, unsigned int finalPosition) {
     int ticks_to_move = (currentPosition > finalPosition)? currentPosition - finalPosition : finalPosition - currentPosition;
 
     return (int)(((ticks_to_move * degreesPerTick * timePerDegree) / calcDivisor) / calcDivisor);
@@ -25,7 +25,7 @@ void ssp(unsigned int port, unsigned int position) {
         position = servoMinTicks;
     }
 
-    set_servo_position(servo, position);
+    ssp(port, position);
     msleep(servo_get_seek_time(oldPos, position));
 
     printf("Moved servo to position: %d\n", get_servo_position(port));
@@ -103,9 +103,9 @@ void setServo0(unsigned int stepsize, unsigned int sleep) {
     printf("Move Servo 0 to %d", servoProperties[0][1]);
 
     if(servoProperties[0][2] == -1 || servoProperties[0][3] == -1)
-        ssp(0, servoProperties[1]);
+        ssp(0, *servoProperties[1]);
     else
-        ssp_stepwise(0, servoProperties[1], servoProperties[2], servoProperties[3]);
+        ssp_stepwise(0, *servoProperties[1], *servoProperties[2], *servoProperties[3]);
 
     servoProperties[0][0] = 0;
 }
@@ -114,9 +114,9 @@ void setServo1(unsigned int stepsize, unsigned int sleep) {
     printf("Move Servo 1 to %d", servoProperties[1][1]);
 
     if(servoProperties[1][2] == -1 || servoProperties[1][3] == -1)
-        ssp(1, servoProperties[1]);
+        ssp(1, *servoProperties[1]);
     else
-        ssp_stepwise(1, servoProperties[1], servoProperties[2], servoProperties[3]);
+        ssp_stepwise(1, *servoProperties[1], *servoProperties[2], *servoProperties[3]);
 
     servoProperties[1][0] = 0;
 }
@@ -125,9 +125,9 @@ void setServo2(unsigned int stepsize, unsigned int sleep) {
     printf("Move Servo 2 to %d", servoProperties[2][1]);
 
     if(servoProperties[2][2] == -1 || servoProperties[2][3] == -1)
-        ssp(2, servoProperties[1]);
+        ssp(2, *servoProperties[1]);
     else
-        ssp_stepwise(2, servoProperties[1], servoProperties[2], servoProperties[3]);
+        ssp_stepwise(2, *servoProperties[1], *servoProperties[2], *servoProperties[3]);
 
     servoProperties[2][0] = 0;
 }
@@ -136,9 +136,9 @@ void setServo3(unsigned int stepsize, unsigned int sleep) {
     printf("Move Servo 3 to %d", servoProperties[3][1]);
 
     if(servoProperties[3][2] == -1 || servoProperties[3][3] == -1)
-        ssp(3, servoProperties[1]);
+        ssp(3, *servoProperties[1]);
     else
-        ssp_stepwise(3, servoProperties[1], servoProperties[2], servoProperties[3]);
+        ssp_stepwise(3, *servoProperties[1], *servoProperties[2], *servoProperties[3]);
 
     servoProperties[3][0] = 0;
 }
