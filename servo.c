@@ -25,7 +25,7 @@ void ssp(unsigned int port, unsigned int position) {
         position = servoMinTicks;
     }
 
-    ssp(port, position);
+    set_servo_position(port, position);
     msleep(servo_get_seek_time(oldPos, position));
 
     printf("Moved servo to position: %d\n", get_servo_position(port));
