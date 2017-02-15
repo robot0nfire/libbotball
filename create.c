@@ -41,7 +41,8 @@ void create_drives_straight(const unsigned short velocity, const short millimete
 
     create_drives_direct(velocity, velocity);
 
-    while(!float_close(millimeters, (get_create_distance() - start), 5)) msleep(10);
+    while(!float_close((float) millimeters, (float) (get_create_distance() - start), 3) && !((get_create_distance() - start) > 
+millimeters)) msleep(1);
 
     create_stop();
 }
