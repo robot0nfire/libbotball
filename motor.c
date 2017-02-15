@@ -12,7 +12,7 @@
 
 void drive_direct(int velocity_left, int velocity_right) {
     mav(LEFT_MOTOR_DRIVE, velocity_left);
-    mav(RIGHT_MOTOR_DRIVE, velocity_right);
+    mav(RIGHT_MOTOR_DRIVE, -velocity_right);
 }
 
 void drive_straight(int velocity, unsigned int ms) {
