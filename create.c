@@ -85,7 +85,7 @@ void create_spins_degrees(const unsigned short speed, const short angle) {
     create_stop();
 }
 
-void create_drives_till_bumper(const unsigned short speed) {
+void create_drives_till_bump(const unsigned short speed) {
     create_drives_direct(speed, speed);
 
     while(!get_create_lbump() && !get_create_rbump()) msleep(1);

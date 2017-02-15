@@ -94,7 +94,7 @@ void create_spins_degrees(const unsigned short speed, const short degree);
 * @param speed The speed at which the create will drive
 */
 
-void create_drives_till_bumper(const unsigned short speed);
+void create_drives_till_bump(const unsigned short speed);
 
 /**
 * @brief Setup process which is required to be executed directly after connecting to the Create
