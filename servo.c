@@ -49,6 +49,8 @@ void ssp_stepwise(unsigned int port, int position, unsigned int stepsize, unsign
             msleep(sleep);
         }
     }
+
+    printf("Moved servo to position: %d\n", get_servo_position(port));
 }
 
 void ssp_asym(unsigned int port1, unsigned int port2, unsigned int position) {
@@ -110,45 +112,45 @@ void ssp_stepwise_asym(unsigned int port1, unsigned int port2, int position, uns
 }
 
 void setServo0() {
-    printf("Move Servo 0 to %d", servoProperties[0][1]);
+    printf("Move Servo 0 to %d\n", servoProperties[0][1]);
 
     if(servoProperties[0][2] == -1 || servoProperties[0][3] == -1)
-        ssp(0, *servoProperties[1]);
+        ssp(0, servoProperties[0][1]);
     else
-        ssp_stepwise(0, *servoProperties[1], *servoProperties[2], *servoProperties[3]);
+        ssp_stepwise(0, servoProperties[0][1], servoProperties[0][2], servoProperties[0][3]);
 
     servoProperties[0][0] = 0;
 }
 
 void setServo1() {
-    printf("Move Servo 1 to %d", servoProperties[1][1]);
+    printf("Move Servo 1 to %d\n", servoProperties[1][1]);
 
     if(servoProperties[1][2] == -1 || servoProperties[1][3] == -1)
-        ssp(1, *servoProperties[1]);
+        ssp(1, servoProperties[1][1]);
     else
-        ssp_stepwise(1, *servoProperties[1], *servoProperties[2], *servoProperties[3]);
+        ssp_stepwise(1, servoProperties[1][1], servoProperties[1][2], servoProperties[1][3]);
 
     servoProperties[1][0] = 0;
 }
 
 void setServo2() {
-    printf("Move Servo 2 to %d", servoProperties[2][1]);
+    printf("Move Servo 2 to %d\n", servoProperties[2][1]);
 
     if(servoProperties[2][2] == -1 || servoProperties[2][3] == -1)
-        ssp(2, *servoProperties[1]);
+        ssp(2, servoProperties[2][1]);
     else
-        ssp_stepwise(2, *servoProperties[1], *servoProperties[2], *servoProperties[3]);
+        ssp_stepwise(2, servoProperties[2][1], servoProperties[2][2], servoProperties[2][3]);
 
     servoProperties[2][0] = 0;
 }
 
 void setServo3() {
-    printf("Move Servo 3 to %d", servoProperties[3][1]);
+    printf("Move Servo 3 to %d\n", servoProperties[3][1]);
 
     if(servoProperties[3][2] == -1 || servoProperties[3][3] == -1)
-        ssp(3, *servoProperties[1]);
+        ssp(3, servoProperties[3][1]);
     else
-        ssp_stepwise(3, *servoProperties[1], *servoProperties[2], *servoProperties[3]);
+        ssp_stepwise(3, servoProperties[3][1], servoProperties[3][2], servoProperties[3][3]);
 
     servoProperties[3][0] = 0;
 }
