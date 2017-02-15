@@ -41,10 +41,9 @@ void create_drives_straight(const unsigned short velocity, const short millimete
 
     create_drives_direct(velocity, velocity);
 
-    while(float_close(millimeters, (get_create_distance() - start), 5)) msleep(1);
+    while(float_close(millimeters, (get_create_distance() - start), 5)) msleep(10);
 
     create_stop();
-
 }
 
 void create_spins_direct(const unsigned short speed, const short direction) {
