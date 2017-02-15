@@ -38,24 +38,23 @@ void create_stop() {
 }
 
 void create_drives_straight(const unsigned short velocity, const short millimeters) {
+    set_create_distance(0);
     int start = get_create_distance();
     int distance = start;
 
-    double mod;
+    double mod = 1;
 
     create_drives_direct(velocity, velocity);
 
     while(!float_close((float) millimeters, (float) (distance - start), 3) && !((distance - start) > millimeters)) {
 
-        if((distance - start) < (millimeters - (millimeters * 0.2))) msleep(1);
+	printf("DISTANCE TO GOAL: %d\n", (millimeters - (distance - start)));
+	printf("VELOCITY: %d\n", (int) (velocity * mod));
+	printf("MOD: %f\n", mod);
 
-        else {
-
-            mod = (0.65 * MIN(pow((double) (millimeters - (distance - start)), 2) / pow(velocity, 2), 1) + 0.35);
-            create_drives_direct((int) floor(velocity * mod), (int) floor(velocity * mod));
-            msleep(3);
-
-        }
+        mod = (0.5 * MIN(0.6 + pow((double) (millimeters - (distance - start)), 2) / pow(velocity, 2), 1) + 0.5);
+        create_drives_direct((int) floor(velocity * mod), (int) floor(velocity * mod));
+        msleep(3);
 
         distance = get_create_distance();
     }
@@ -89,7 +88,7 @@ void create_spins_degrees(const unsigned short speed, const short angle) {
 void create_drives_till_bumper(const unsigned short speed) {
     create_drives_direct(speed, speed);
 
-    while(!get_create_lbumb() && !get_create_rbumb()) msleep(1);
+    while(!get_create_lbump() && !get_create_rbump()) msleep(1);
 
     create_stop();
 }
