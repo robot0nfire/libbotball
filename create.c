@@ -8,7 +8,7 @@
 */
 
 #include <kipr/botball.h>
-#include "include/libcreate.h"
+#include "include/create.h"
 #include "include/create_codes.h"
 #include "include/create_velocities.h"
 
@@ -95,4 +95,5 @@ void create_setup() {
 void create_shutdown() {
     create_stop();
     create_write_byte(OI_SAFE);
+    create_disconnect();
 }
