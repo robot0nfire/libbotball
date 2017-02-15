@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <math.h>
 
 float float_close(float a, float b, float abs_tol) {
     float rel_tol = 0.00001;
