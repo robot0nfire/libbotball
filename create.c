@@ -71,7 +71,6 @@ void create_spins_degrees(const unsigned short speed, const short angle) {
 
 void create_setup() {
     create_write_byte(OI_FULL);
-    init_list(10, 70);
 }
 
 void create_shutdown() {
