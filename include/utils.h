@@ -26,4 +26,4 @@
 
 * @return 1 if the values are close to each other, otherwise 0
 */
-int int_close(int a, int b, int abs_tol);
+int float_close(int a, int b, int abs_tol);
