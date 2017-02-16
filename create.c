@@ -48,10 +48,6 @@ void create_drives_straight(const unsigned short velocity, const short millimete
 
     while(!float_close((float) millimeters, (float) (distance - start), 3) && !((distance - start) > millimeters)) {
 
-	printf("DISTANCE TO GOAL: %d\n", (millimeters - (distance - start)));
-	printf("VELOCITY: %d\n", (int) (velocity * mod));
-	printf("MOD: %f\n", mod);
-
         mod = (0.5 * MIN(0.6 + pow((double) (millimeters - (distance - start)), 2) / pow(velocity, 2), 1) + 0.5);
         create_drives_direct((int) floor(velocity * mod), (int) floor(velocity * mod));
         msleep(3);
