@@ -44,3 +44,14 @@ void follow_line(unsigned int ms) {
             drive(1500, 1500, 10);
     }
 }
+
+void smp(unsigned int port, unsigned int velocity, unsigned int position) {
+    if(position < get_motor_position_counter(port))
+        mtp(port, -velocity, position);
+    else
+        mtp(port, velocity, position);
+    msleep(300);
+    while(!get_motor_done(port))
+        msleep(1);
+    freeze(port);
+}

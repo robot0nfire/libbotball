@@ -65,8 +65,19 @@ void drive(int velocity_left, int velocity_right, unsigned int ms);
 * @brief This method lets the robot follow a line for a given duration
 * @author Nico Kratky
 *
-* @param ms How lon the robot will follow a line
+* @param ms How long the robot will follow a line
 */
 void follow_line(unsigned int ms);
+
+/**
+* @brief This method moves a motor to a given position
+* smp stands for 'set motor position'
+* @author Nico Kratky
+*
+* @param port Port to which the motor is connected
+* @oaram velocity Speed at which the motor will move
+* @param position Position to which to motor should be moved
+*/
+void smp(unsigned int port, unsigned int velocity, unsigned int position);
 
 #endif /* MOTOR_H */
