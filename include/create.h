@@ -40,6 +40,7 @@ void create_stop();
 
 /**
 * @brief This method drives a given distance at a given speed, all in a straight line.
+* This function unilizes a algorithm to slow down when coming close to the goal distance
 * @author Nico Kratky
 *
 * @param speed Speed at which the Create should drive
@@ -85,6 +86,15 @@ void create_spins_counterclockwise(const unsigned short speed);
 * @param degree Angle to which the Create should spin, If positive the Create will spin clockwise, otherwise it will spin counter-clockwise
 */
 void create_spins_degrees(const unsigned short speed, const short degree);
+
+/**
+* @brief This method drives at a given speed until the bumper sensor is triggered
+* @author Nico Kratky
+*
+* @param speed The speed at which the create will drive
+*/
+
+void create_drives_till_bumper(const unsigned short speed);
 
 /**
 * @brief Setup process which is required to be executed directly after connecting to the Create
