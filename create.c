@@ -8,6 +8,7 @@
 */
 
 #include <kipr/botball.h>
+#include <math.h>
 #include "include/utils.h"
 #include "include/create.h"
 #include "include/create_codes.h"
@@ -38,11 +39,26 @@ void create_stop() {
 
 void create_drives_straight(const unsigned short velocity, const short millimeters) {
     int start = get_create_distance();
+    int distance = start;
+
+    double mod;
 
     create_drives_direct(velocity, velocity);
 
-    while(!float_close((float) millimeters, (float) (get_create_distance() - start), 3) && !((get_create_distance() - start) > 
-millimeters)) msleep(1);
+    while(!float_close((float) millimeters, (float) (distance - start), 3) && !((distance - start) > millimeters)) {
+
+        if((distance - start) < (millimeters - (millimeters * 0.2))) msleep(1);
+
+        else {
+
+            mod = (0.65 * MIN(pow((double) (millimeters - (distance - start)), 2) / pow(velocity, 2), 1) + 0.35);
+            create_drives_direct((int) floor(velocity * mod), (int) floor(velocity * mod));
+            msleep(3);
+
+        }
+
+        distance = get_create_distance();
+    }
 
     create_stop();
 }
@@ -67,6 +83,14 @@ void create_spins_degrees(const unsigned short speed, const short angle) {
 
     create_spins_direct(speed, angle);
     msleep(timeToGoal * 1000);
+    create_stop();
+}
+
+void create_drives_till_bumper(const unsigned short speed) {
+    create_drives_direct(speed, speed);
+
+    while(!get_create_lbumb() && !get_create_rbumb()) msleep(1);
+
     create_stop();
 }
 
