@@ -46,15 +46,9 @@ void create_stop();
 * @param speed Speed at which the Create should drive
 * @param millimeters Distance in mm which should be driven
 */
-void create_drives_straight(const unsigned short speed, const short millimeters);
-/**
-* @brief This method drives a given distance
-* The velocity at which the given distance should be reached precisly is determined automatically
-* @author Nico Kratky
-*
-* @param millimeters Distance in mm which should be driven
-*/
-void create_drives_straight_auto(const short millimeters);
+void create_drives_straight(const short velocity, const short millimeters);
+
+void create_drives_time(const short velocity, const short milliseconds);
 
 /**
 * @brief This method spins the Create at a given speed and direction

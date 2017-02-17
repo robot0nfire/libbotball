@@ -37,24 +37,30 @@ void create_stop() {
     create_write_byte(LOW_BYTE(0));
 }
 
-void create_drives_straight(const unsigned short velocity, const short millimeters) {
+void create_drives_straight(const short velocity, const short millimeters) {
     set_create_distance(0);
-    int start = get_create_distance();
+    int start = abs(get_create_distance());
     int distance = start;
 
     double mod = 1;
 
     create_drives_direct(velocity, velocity);
 
-    while(!float_close((float) millimeters, (float) abs((distance - start)), 3) && !(abs((distance - start)) > millimeters)) {
+    while(!float_close((float) millimeters, (float) (distance - start), 3) && !((distance - start) > millimeters)) {
 
-        mod = (0.5 * MIN(0.6 + pow((double) (millimeters - abs((distance - start))), 2) / pow(velocity, 2), 1) + 0.5);
+        mod = (0.5 * MIN(0.6 + pow((double) (millimeters - (distance - start)), 2) / pow(velocity, 2), 1) + 0.5);
         create_drives_direct((int) floor(velocity * mod), (int) floor(velocity * mod));
         msleep(3);
 
-        distance = get_create_distance();
+        distance = abs(get_create_distance());
     }
 
+    create_stop();
+}
+
+void create_drives_time(const short velocity, const short milliseconds) {
+    create_drives_direct(velocity, velocity);
+    msleep(milliseconds);
     create_stop();
 }
 
