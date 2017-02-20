@@ -7,6 +7,9 @@
 * @date 16/2/2017
 */
 
+#ifndef UTILS_H /* Include guard */
+#define UTILS_H
+
 /**
 * @brief returns the bigger value of two given ones
 */
@@ -27,3 +30,17 @@
 * @return 1 if the values are close to each other, otherwise 0
 */
 int float_close(float a, float b, float abs_tol);
+
+/**
+* @brief This method is used to determine which starting procedure should be used
+* @author Nico Kratky
+*/
+void start();
+
+/**
+* @brief This method gets the time since the program started.
+* @author Nico Kratky
+*/
+double get_time();
+
+#endif /* UTILS_H */

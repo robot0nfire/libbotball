@@ -27,10 +27,10 @@ void create_drives(const short velocity, const short radius);
 * @brief This method drives with two given velocities, one for each wheel.
 * @author Nico Kratky
 *
-* @param speed_l Speed at which the left wheel should drive
-* @param speed_r Speed at which the right wheel should drive
+* @param velocity_l Speed at which the left wheel should drive
+* @param velocity_r Speed at which the right wheel should drive
 */
-void create_drives_direct(const short speed_l, const short speed_r);
+void create_drives_direct(const short velocity_l, const short velocity_r);
 
 /**
 * @brief This method is used to stop the Create.
@@ -40,55 +40,69 @@ void create_stop();
 
 /**
 * @brief This method drives a given distance at a given speed, all in a straight line.
-* This function unilizes a algorithm to slow down when coming close to the goal distance
+* This function utilizes a algorithm to slow down when coming close to the goal distance
 * @author Nico Kratky
 *
-* @param speed Speed at which the Create should drive
+* @param velocity Speed at which the Create should drive
 * @param millimeters Distance in mm which should be driven
 */
 void create_drives_straight(const short velocity, const short millimeters);
 
+/**
+* @brief This method drives at a given velocity for a given time
+* @author Nico Kratky
+*
+* @param velocity at which the Create will drive
+* @param milliseconds How long the Create will drive
+*/
 void create_drives_time(const short velocity, const short milliseconds);
 
 /**
 * @brief This method spins the Create at a given speed and direction
 * @author Nico Kratky
 *
-* @param speed Speed at which the Create should spin
+* @param velocity Speed at which the Create should spin
 * @param direction Direction in which the Create should spin. If positive the Create will spin counter-clockwise, otherwise it will spin clockwise
 */
-void create_spins_direct(const unsigned short speed, const short direction);
+void create_spins_direct(const short velocity, const short direction);
 /**
 * @brief This method spins the Create clockwise at a given speed
 * @author Nico Kratky
 *
-* @param speed Speed at which the Create should spin
+* @param velocity Speed at which the Create should spin
 */
-void create_spins_clockwise(const unsigned short speed);
+void create_spins_clockwise(const short velocity);
 /**
 * @brief This method spins the Create counter-clockwise at a given speed
 * @author Nico Kratky
 *
-* @param speed Speed at which the Create should spin
+* @param velocity Speed at which the Create should spin
 */
-void create_spins_counterclockwise(const unsigned short speed);
+void create_spins_counterclockwise(const short velocity);
 /**
 * @brief This method spins the Create at a given speed to a given angle
 * @author Nico Kratky
 *
-* @param speed Speed at which the Create should spin
+* @param velocity Speed at which the Create should spin
 * @param degree Angle to which the Create should spin, If positive the Create will spin clockwise, otherwise it will spin counter-clockwise
 */
-void create_spins_degrees(const unsigned short speed, const short degree);
+void create_spins_degrees(const short velocity, const short degree);
 
 /**
 * @brief This method drives at a given speed until the bumper sensor is triggered
 * @author Nico Kratky
 *
-* @param speed The speed at which the create will drive
+* @param velocity The speed at which the create will drive
 */
+void create_drives_till_bump(const short velocity);
 
-void create_drives_till_bump(const unsigned short speed);
+/**
+* @brief This method drives at a given speed until the ET sensor is triggered
+* @author Nico Kratky
+*
+* @param velocity The speed at which the create will drive
+*/
+void create_drives_till_et(const short velocity, int milliseconds);
 
 /**
 * @brief Setup process which is required to be executed directly after connecting to the Create

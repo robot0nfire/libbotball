@@ -10,12 +10,12 @@
 #include <kipr/botball.h>
 #include "include/motor.h"
 
-void drive_direct(int velocity_left, int velocity_right) {
-    mav(LEFT_MOTOR_DRIVE, velocity_left);
-    mav(RIGHT_MOTOR_DRIVE, -velocity_right);
+void drive_direct(const short velocity_l, const short velocity_r) {
+    mav(LEFT_MOTOR_DRIVE, velocity_l);
+    mav(RIGHT_MOTOR_DRIVE, -velocity_r);
 }
 
-void drive_straight(int velocity, unsigned int ms) {
+void drive_straight(const short velocity, const short ms) {
     mav(LEFT_MOTOR_DRIVE, velocity);
     mav(RIGHT_MOTOR_DRIVE, -velocity);
 
@@ -25,14 +25,14 @@ void drive_straight(int velocity, unsigned int ms) {
     freeze(RIGHT_MOTOR_DRIVE);
 }
 
-void drive(int velocity_left, int velocity_right, unsigned int ms) {
-    drive_direct(velocity_left, velocity_right);
+void drive(const short velocity_l, int velocity_r, const int ms) {
+    drive_direct(velocity_l, velocity_r);
     msleep(ms);
     freeze(LEFT_MOTOR_DRIVE);
     freeze(RIGHT_MOTOR_DRIVE);
 }
 
-void follow_line(unsigned int ms) {
+void follow_line(const int ms) {
     float end_time = seconds() + (ms / 1000);
 
     while (seconds() < end_time) {
@@ -45,7 +45,7 @@ void follow_line(unsigned int ms) {
     }
 }
 
-void smp(unsigned int port, unsigned int velocity, unsigned int position) {
+void smp(int port, const short velocity, const short position) {
     if(position < get_motor_position_counter(port))
         mtp(port, -velocity, position);
     else

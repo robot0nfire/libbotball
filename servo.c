@@ -1,4 +1,4 @@
-#/**
+/**
 * @file servo.c
 * @brief This file provides functions to interact with the Botball servos.
 *
@@ -10,7 +10,7 @@
 #include <kipr/botball.h>
 #include "include/servo.h"
 
-void ssp(unsigned int port, unsigned int position) {
+void ssp(short port, short position) {
     int oldPos = get_servo_position(port);
 
     if(position > servoMaxTicks) {
@@ -25,7 +25,7 @@ void ssp(unsigned int port, unsigned int position) {
     printf("Moved servo to position: %d\n", get_servo_position(port));
 }
 
-void ssp_stepwise(unsigned int port, int position, unsigned int stepsize, unsigned int sleep) {
+void ssp_stepwise(short port, short position, int stepsize, int sleep) {
     if(position > servoMaxTicks) {
         position = servoMaxTicks;
     } else if(position < servoMinTicks) {
@@ -53,7 +53,7 @@ void ssp_stepwise(unsigned int port, int position, unsigned int stepsize, unsign
     printf("Moved servo to position: %d\n", get_servo_position(port));
 }
 
-void ssp_asym(unsigned int port1, unsigned int port2, unsigned int position) {
+void ssp_asym(short port1, short port2, short position) {
     if(position > servoMaxTicks) {
         position = servoMaxTicks;
     } else if(position < servoMinTicks) {
@@ -74,7 +74,7 @@ void ssp_asym(unsigned int port1, unsigned int port2, unsigned int position) {
     printf("Moved servoB to position: %d\n", get_servo_position(port2));
 }
 
-void ssp_stepwise_asym(unsigned int port1, unsigned int port2, int position, unsigned int stepsize, unsigned int sleep) {
+void ssp_stepwise_asym(short port1, short port2, short position, int stepsize, int sleep) {
     if(position > servoMaxTicks) {
         position = servoMaxTicks;
     } else if(position < servoMinTicks) {
@@ -155,7 +155,7 @@ void setServo3() {
     servoProperties[3][0] = 0;
 }
 
-void ssp_async(unsigned int port, unsigned int position) {
+void ssp_async(short port, short position) {
     if(position > servoMaxTicks) {
         position = servoMaxTicks;
     } else if(position < servoMinTicks) {
@@ -185,7 +185,7 @@ void ssp_async(unsigned int port, unsigned int position) {
     printf("Started Servo thread\n");
 }
 
-void ssp_stepwise_async(unsigned int port, unsigned int position, unsigned int stepsize, unsigned int sleep) {
+void ssp_stepwise_async(short port, short position, int stepsize, int sleep) {
     if(position > servoMaxTicks) {
         position = servoMaxTicks;
     } else if(position < servoMinTicks) {
@@ -215,7 +215,7 @@ void ssp_stepwise_async(unsigned int port, unsigned int position, unsigned int s
     printf("Started Servo thread\n");
 }
 
-void ssp_asym_async(unsigned int port1, unsigned int port2, unsigned int position) {
+void ssp_asym_async(short port1, short port2, short position) {
     wait_for_servo(port1);
     wait_for_servo(port2);
 
@@ -267,7 +267,7 @@ void ssp_asym_async(unsigned int port1, unsigned int port2, unsigned int positio
     printf("Started Servo threads\n");
 }
 
-void ssp_stepwise_asym_async(unsigned int port1, unsigned int port2, unsigned int position, unsigned int stepsize, unsigned int sleep) {
+void ssp_stepwise_asym_async(short port1, short port2, short position, int stepsize, int sleep) {
     wait_for_servo(port1);
     wait_for_servo(port2);
 

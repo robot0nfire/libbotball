@@ -39,7 +39,7 @@ static int servoProperties[4][4] = {
 *
 * @param servo Port to which the servo is connected
 */
-static int is_blocked(int servo){
+static int is_blocked(short servo){
     return servoProperties[servo][0];
 }
 
@@ -48,7 +48,7 @@ static int is_blocked(int servo){
 *
 * @param servo Port to which the servo is connected
 */
-static void wait_for_servo(int servo){
+static void wait_for_servo(short servo){
     while(servoProperties[servo][0]){
         msleep(1);
     }
@@ -61,7 +61,7 @@ static void wait_for_servo(int servo){
 * @param port The port at which the servo is connected to the wallaby
 * @param position The position to which the servo should be moved
 */
-void ssp(unsigned int port, unsigned int position);
+void ssp(short port, short position);
 
 /**
 * @brief Moves a servo with a given speed and given step size "slow" to it's destination
@@ -72,7 +72,7 @@ void ssp(unsigned int port, unsigned int position);
 * @param stepsize How 'slow' the servo should be moved
 * @param sleep How long the servo sleeps in between steps
 */
-void ssp_stepwise(unsigned int port, int position, unsigned int stepsize, unsigned int sleep);
+void ssp_stepwise(short port, short position, int stepsize, int sleep);
 
 /**
 * @brief This method moves two given servos asymmetrically to the given position
@@ -82,7 +82,7 @@ void ssp_stepwise(unsigned int port, int position, unsigned int stepsize, unsign
 * @param port2 The port at which the second servo is connected to the wallaby
 * @param position The position to which the servo should be moved
 */
-void ssp_asym(unsigned int port1, unsigned int port2, unsigned int position);
+void ssp_asym(short port1, short port2, short position);
 
 /**
 * @brief This method moves two given servos asymmetrically and stepwise to the given position
@@ -94,7 +94,7 @@ void ssp_asym(unsigned int port1, unsigned int port2, unsigned int position);
 * @param stepsize How 'slow' the servos should be moved
 * @param sleep How long the servos sleep in between steps
 */
-void ssp_stepwise_asym(unsigned int port1, unsigned int port2, int position, unsigned int stepsize, unsigned int sleep);
+void ssp_stepwise_asym(short port1, short port2, short position, int stepsize, int sleep);
 
 /**
 * @brief This method moves servo 1 to the position defined in the positions array
@@ -139,7 +139,7 @@ void setServo3();
 * @param port The port at which the servo is connected to the wallaby
 * @param position The position to which the servo should be moved
 */
-void ssp_async(unsigned int port, unsigned int position);
+void ssp_async(short port, short position);
 
 /**
 * @brief This method moves the given servo stepwise and asynchronously to the desired position
@@ -148,7 +148,7 @@ void ssp_async(unsigned int port, unsigned int position);
 * @param port The port at which the servo is connected to the wallaby
 * @param position The position to which the servo should be moved
 */
-void ssp_stepwise_async(unsigned int port, unsigned int position, unsigned int stepsize, unsigned int sleep);
+void ssp_stepwise_async(short port, short position, int stepsize, int sleep);
 
 /**
 * @brief This method moves the given servos asymmetrically and asynchronously to the desired position
@@ -158,7 +158,7 @@ void ssp_stepwise_async(unsigned int port, unsigned int position, unsigned int s
 * @param port2 The port at which the second servo is connected to the wallaby
 * @param position The position to which the servos should be moved
 */
-void ssp_asym_async(unsigned int port1, unsigned int port2, unsigned int position);
+void ssp_asym_async(short port1, short port2, short position);
 
 /**
 * @brief This method moves the given servos stepwise, asymmetrically and asynchronously to the desired position
@@ -170,6 +170,6 @@ void ssp_asym_async(unsigned int port1, unsigned int port2, unsigned int positio
 * @param stepsize How 'slow' the servos should be moved
 * @param sleep How long the servos sleep in between steps
 */
-void ssp_stepwise_asym_async(unsigned int port1, unsigned int port2, unsigned int position, unsigned int stepsize, unsigned int sleep);
+void ssp_stepwise_asym_async(short port1, short port2, short position, int stepsize, int sleep);
 
 #endif /* SERVO_H */

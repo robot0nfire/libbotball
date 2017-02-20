@@ -1,3 +1,12 @@
+/**
+* @file create_codes.h
+* @brief This file stores the codes which are sent to the Create to execute commands
+*
+* @author Nico Kratky
+*
+* @date 17/2/2017
+*/
+
 #ifndef CREATE_CODES_H /* Include guard* */
 #define CREATE_CODES_H
 

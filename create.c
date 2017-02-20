@@ -12,6 +12,7 @@
 #include "include/utils.h"
 #include "include/create.h"
 #include "include/create_codes.h"
+#include "include/ports.h"
 
 void create_drives(const short velocity, const short radius) {
     create_write_byte(OI_DRIVE);
@@ -21,12 +22,12 @@ void create_drives(const short velocity, const short radius) {
     create_write_byte(LOW_BYTE(radius));
 }
 
-void create_drives_direct(const short speed_l, const short speed_r) {
+void create_drives_direct(const short velocity_l, const short velocity_r) {
     create_write_byte(OI_DRIVE_DIRECT);
-    create_write_byte(HIGH_BYTE(speed_l));
-    create_write_byte(LOW_BYTE(speed_l));
-    create_write_byte(HIGH_BYTE(speed_r));
-    create_write_byte(LOW_BYTE(speed_r));
+    create_write_byte(HIGH_BYTE(velocty_l));
+    create_write_byte(LOW_BYTE(velocity_l));
+    create_write_byte(HIGH_BYTE(velocity_r));
+    create_write_byte(LOW_BYTE(velocity_r));
 }
 
 void create_stop() {
@@ -64,33 +65,42 @@ void create_drives_time(const short velocity, const short milliseconds) {
     create_stop();
 }
 
-void create_spins_direct(const unsigned short speed, const short direction) {
-    create_drives(speed, (direction > 0) ? -1 : 1);
+void create_spins_direct(const short velocity, const short direction) {
+    create_drives(velocity, (direction > 0) ? -1 : 1);
 }
 
-void create_spins_clockwise(const unsigned short speed) {
-    create_spins_direct(speed, 1);
+void create_spins_clockwise(const short velocity) {
+    create_spins_direct(velocity, 1);
 }
 
-void create_spins_counterclockwise(const unsigned short speed) {
-    create_spins_direct(speed, -1);
+void create_spins_counterclockwise(const short velocity) {
+    create_spins_direct(velocity, -1);
 }
 
-void create_spins_degrees(const unsigned short speed, const short angle) {
+void create_spins_degrees(const short velocity, const short angle) {
     double oneDegree = CIRCUMFERENCE / 360;
     double mm = oneDegree * abs(angle);
 
-    double timeToGoal = mm / (speed + 8);
+    double timeToGoal = mm / (velocity + 8);
 
-    create_spins_direct(speed, angle);
+    create_spins_direct(velocity, angle);
     msleep(timeToGoal * 1000);
     create_stop();
 }
 
-void create_drives_till_bump(const unsigned short speed) {
-    create_drives_direct(speed, speed);
+void create_drives_till_bump(const short velocity) {
+    create_drives_direct(velocity, velocity);
 
     while(!get_create_lbump() && !get_create_rbump()) msleep(1);
+
+    create_stop();
+}
+
+void create_drives_till_et(const short velocity, int milliseconds) {
+    create_drives_direct(velocity, velocity);
+
+    int start = seconds();
+    while(seconds() < start + (milliseconds / 1000) && analog(ET_CREATE) < 500) msleep(1);
 
     create_stop();
 }

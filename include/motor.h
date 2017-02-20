@@ -11,24 +11,6 @@
 #define MOTOR_H
 
 /**
-* @brief Port to which the left driving motor is connected
-*/
-#define LEFT_MOTOR_DRIVE 0
-/**
-* @brief Port to which the right driving motor is connected
-*/
-#define RIGHT_MOTOR_DRIVE 3
-
-/**
-* @brief Port to which the left tophat is connected
-*/
-#define TOPHAT_LEFT 0
-/**
-* @brief Port to which the left tophat is connected
-*/
-#define TOPHAT_RIGHT 1
-
-/**
 * @brief Threshold for following a line
 */
 #define THRESHOLD 0
@@ -37,10 +19,10 @@
 * @brief This method lets the robot drive with two given velocities
 * @author Nico Kratky
 *
-* @param velocity_left Velocity at which the left motor will be moved
-* @param velocity_right Velocity at which the right motor will be moved
+* @param velocity_l Velocity at which the left motor will be moved
+* @param velocity_r Velocity at which the right motor will be moved
 */
-void drive_direct(int velocity_left, int velocity_right);
+void drive_direct(const short velocity_l, const short velocity_r);
 
 /**
 * @brief This method lets the robot drive straight for a given duration
@@ -49,17 +31,17 @@ void drive_direct(int velocity_left, int velocity_right);
 * @param velocity Velocity at which the motors will be moved
 * @param ms How long the robot will drive
 */
-void drive_straight(int velocity, unsigned int ms);
+void drive_straight(const short velocity, const short ms);
 
 /**
 * @brief This method lets the robot drive with two given velocities for a given duration
 * @author Nico Kratky
 *
-* @param velocity_left Velocity at which the left motor will be moved
-* @param velocity_right Velocity at which the right motor will be moved
+* @param velocity_l Velocity at which the left motor will be moved
+* @param velocity_r Velocity at which the right motor will be moved
 * @param ms How long the robot will drive
 */
-void drive(int velocity_left, int velocity_right, unsigned int ms);
+void drive(const short velocity_l, int velocity_r, const int ms);
 
 /**
 * @brief This method lets the robot follow a line for a given duration
@@ -67,7 +49,7 @@ void drive(int velocity_left, int velocity_right, unsigned int ms);
 *
 * @param ms How long the robot will follow a line
 */
-void follow_line(unsigned int ms);
+void follow_line(const int ms);
 
 /**
 * @brief This method moves a motor to a given position
@@ -78,6 +60,6 @@ void follow_line(unsigned int ms);
 * @oaram velocity Speed at which the motor will move
 * @param position Position to which to motor should be moved
 */
-void smp(unsigned int port, unsigned int velocity, unsigned int position);
+void smp(int port, const short velocity, const short position);
 
 #endif /* MOTOR_H */
