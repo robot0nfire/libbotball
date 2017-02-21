@@ -24,7 +24,7 @@ void create_drives(const short velocity, const short radius) {
 
 void create_drives_direct(const short velocity_l, const short velocity_r) {
     create_write_byte(OI_DRIVE_DIRECT);
-    create_write_byte(HIGH_BYTE(velocty_l));
+    create_write_byte(HIGH_BYTE(velocity_l));
     create_write_byte(LOW_BYTE(velocity_l));
     create_write_byte(HIGH_BYTE(velocity_r));
     create_write_byte(LOW_BYTE(velocity_r));
