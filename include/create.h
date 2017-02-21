@@ -102,7 +102,7 @@ void create_drives_till_bump(const short velocity);
 *
 * @param velocity The speed at which the create will drive
 */
-void create_drives_till_et(const short velocity, const int milliseconds, const short port);
+void create_drives_till_et(const short velocity, const int milliseconds, const short port, const short threshold);
 
 /**
 * @brief Setup process which is required to be executed directly after connecting to the Create

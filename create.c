@@ -96,11 +96,11 @@ void create_drives_till_bump(const short velocity) {
     create_stop();
 }
 
-void create_drives_till_et(const short velocity, const int milliseconds, const short port) {
+void create_drives_till_et(const short velocity, const int milliseconds, const short port, const short threshold) {
     create_drives_direct(velocity, velocity);
 
     int start = seconds();
-    while(seconds() < start + (milliseconds / 1000) && analog(port) < 500) msleep(1);
+    while(seconds() < start + (milliseconds / 1000) && analog(port) < threshold) msleep(1);
 
     create_stop();
 }
