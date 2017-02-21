@@ -8,6 +8,7 @@
 */
 
 #include <kipr/botball.h>
+#include "include/ports.h"
 #include "include/motor.h"
 
 void drive_direct(const short velocity_l, const short velocity_r) {
