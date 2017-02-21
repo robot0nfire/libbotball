@@ -18,7 +18,6 @@
 * @subsection sensors_analog Ports to which analog sensors are connected
 */
 
-#define ET_CREATE 0
 #define TOPHAT_LEFT 0
 #define TOPHAT_RIGHT 1
 #define LIGHT_SENSOR 5
