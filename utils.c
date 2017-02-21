@@ -7,6 +7,7 @@
 * @date 17/2/2017
 */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include "include/utils.h"
 #include "include/ports.h"
