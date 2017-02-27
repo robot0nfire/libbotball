@@ -43,15 +43,21 @@ void create_drives_straight(const short velocity, const short millimeters) {
     int start = abs(get_create_distance());
     int distance = start;
 
-    double mod = 1;
+    double mod1;
+    double mod2;
 
     create_drives_direct(velocity, velocity);
 
     while(!float_close((float) millimeters, (float) (distance - start), 3) && !((distance - start) > millimeters)) {
 
-        mod = (0.5 * MIN(0.6 + pow((double) (millimeters - (distance - start)), 2) / pow(velocity, 2), 1) + 0.5);
-        create_drives_direct((int) floor(velocity * mod), (int) floor(velocity * mod));
-        msleep(3);
+        mod1 = 0.6 + pow((double) (millimeters - (distance - start)), 2) / pow(velocity, 2);
+	
+        if(mod1 >= 1) msleep(3);
+        else {
+            mod2 = 0.5 * mod1 + 0.5;
+            create_drives_direct((int) floor(velocity * mod2), (int) floor(velocity * mod2));
+            msleep(3);
+        }
 
         distance = abs(get_create_distance());
     }
