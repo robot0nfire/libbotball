@@ -12,7 +12,7 @@
 #include "include/utils.h"
 #include "include/ports.h"
 
-double start_time;
+unsigned long start_time;
 
 int float_close(float a, float b, float abs_tol) {
     float rel_tol = 0.00001;
@@ -25,10 +25,11 @@ int float_close(float a, float b, float abs_tol) {
 
 void start() {
     int light = 0;
-    start_time = seconds();
+
+    start_time = systime();
 
     printf("Press Button once to start with light, otherwise will start on button press\n");
-    while((start_time + 3) > seconds()) {
+    while(((unsigned long) (start_time + 500.0)) > systime()) {
         if(digital(RIGHT_BUTTON) == 1) {
             light = 1;
             break;
@@ -40,17 +41,17 @@ void start() {
         printf("Starting with light\n");
         msleep(500);
         wait_for_light(LIGHT_SENSOR);
-        start_time = seconds();
+        start_time = systime();
         printf("Let's Go!\n");
     }
     else {
         printf("Starting on button press\nWaiting for input...\n");
         while(!digital(RIGHT_BUTTON)) msleep(1);
-        start_time = seconds();
+        start_time = systime();
         printf("Let's Go!\n");
     }
 }
 
-double get_time() {
-    return (seconds() - start_time);
+unsigned long get_time() {
+    return (unsigned long)(systime() - start_time);
 }

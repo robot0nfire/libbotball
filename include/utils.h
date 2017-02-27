@@ -41,6 +41,6 @@ void start();
 * @brief This method gets the time since the program started.
 * @author Nico Kratky
 */
-double get_time();
+unsigned long get_time();
 
 #endif /* UTILS_H */
