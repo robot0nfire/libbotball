@@ -51,7 +51,7 @@ void create_drives_straight(const short velocity, const short millimeters) {
     while(!float_close((float) millimeters, (float) (distance - start), 3) && !((distance - start) > millimeters)) {
 
         mod1 = 0.6 + pow((double) (millimeters - (distance - start)), 2) / pow(velocity, 2);
-	
+
         if(mod1 >= 1) msleep(3);
         else {
             mod2 = 0.5 * mod1 + 0.5;
