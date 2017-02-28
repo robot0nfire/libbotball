@@ -15,6 +15,10 @@
 
 #define CIRCUMFERENCE 1065
 
+#define CREATE_SPEED_SLOW -100
+#define CREATE_SPEED_MEDIUM -200
+#define CREATE_SPPED_FAST -300
+
 /**
 * @brief This method drives at a given velocity and radius
 * @author Nico Kratky
