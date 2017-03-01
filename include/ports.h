@@ -33,7 +33,7 @@
 * @section motors Ports to which motors are connected
 */
 
-#define LEFT_MOTOR_DRIVE 0
-#define RIGHT_MOTOR_DRIVE 3
+#define LEFT_MOTOR_DRIVE 3
+#define RIGHT_MOTOR_DRIVE 0
 
 #endif /* PORTS_H */
