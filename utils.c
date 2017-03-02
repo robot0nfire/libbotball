@@ -1,6 +1,6 @@
 /**
-* @file ports.h
-* @brief This file defines the ports to which sensors, motors, and servos are connected
+* @file utils.c
+* @brief This file provides utility functions
 *
 * @author Nico Kratky
 *
