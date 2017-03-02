@@ -11,29 +11,30 @@
 #define PORTS_H
 
 /**
-* @section sensors Ports to which sensors are connected
+* @brief Port to which the left tophat sensor is connected
 */
-
-/**
-* @subsection sensors_analog Ports to which analog sensors are connected
-*/
-
 #define TOPHAT_LEFT 0
+/**
+* @brief Port to which the right tophat sensor is connected
+*/
 #define TOPHAT_RIGHT 1
+/**
+* @brief Port to which the light sensor is connected
+*/
 #define LIGHT_SENSOR 5
 
-
 /**
-* @subsection sensors_digital Ports to which digital sensors are connected
+* @brief Port to which the right button is connected
 */
-
 #define RIGHT_BUTTON 13
 
 /**
-* @section motors Ports to which motors are connected
+* @brief Port to which the left driving motor is connected
 */
-
 #define LEFT_MOTOR_DRIVE 3
+/**
+* @brief Port to which the right driving motor is connected
+*/
 #define RIGHT_MOTOR_DRIVE 0
 
 #endif /* PORTS_H */
