@@ -1,5 +1,5 @@
 /**
-* @file libcreate.h
+* @file create.h
 * @brief This file is used for interacting with the iRobot Create2.
 *
 * @author Nico Kratky
