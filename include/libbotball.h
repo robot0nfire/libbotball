@@ -1,3 +1,12 @@
+/**
+* @file libbotball.h
+* @brief Libbotball is robot0nfire's library for interacting with Botball robots.
+*
+* @author Nico Kratky
+*
+* @date 28/1/2017
+*/
+
 #ifndef LIBBOTBALL_H /* Include guard */
 #define LIBBOTBALL_H
 
