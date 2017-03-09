@@ -13,7 +13,7 @@
 /**
 * @brief Threshold for following a line
 */
-#define THRESHOLD 0
+#define THRESHOLD 3800
 
 /**
 * @brief This method lets the robot drive with two given velocities
