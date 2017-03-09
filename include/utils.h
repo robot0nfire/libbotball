@@ -43,4 +43,10 @@ void start();
 */
 unsigned long get_time();
 
+/**
+* @brief Stopping procedure
+* @author Nico Leidenfrost
+*/
+void stop();
+
 #endif /* UTILS_H */

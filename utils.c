@@ -55,3 +55,8 @@ void start() {
 unsigned long get_time() {
     return (unsigned long)(systime() - start_time);
 }
+
+void stop() {
+    printf("Stopped after %lu Seconds\n", get_time() / 1000);
+    disable_servos();
+}
