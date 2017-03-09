@@ -117,6 +117,7 @@ void create_setup() {
 }
 
 void create_shutdown() {
+    stop();
     create_stop();
     create_write_byte(OI_SAFE);
     create_disconnect();
