@@ -17,8 +17,8 @@ void drive_direct(const short velocity_l, const short velocity_r) {
 }
 
 void drive_straight(const short velocity, const short ms) {
-    mav(LEFT_MOTOR_DRIVE, velocity);
-    mav(RIGHT_MOTOR_DRIVE, -velocity);
+    mav(LEFT_MOTOR_DRIVE, (short)(velocity * 1.0));
+    mav(RIGHT_MOTOR_DRIVE, (short)(velocity * -1.0));
 
     msleep(ms);
 
