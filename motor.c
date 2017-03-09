@@ -57,7 +57,7 @@ void smp(int port, const short velocity, const short position) {
     freeze(port);
 }
 
-void turn(const short velocity, const short deg) {
+void turn(short velocity, const short deg) {
 
     msleep(200); // important!
     clear_motor_position_counter(RIGHT_MOTOR_DRIVE);
@@ -69,6 +69,8 @@ void turn(const short velocity, const short deg) {
 
     int ticks = ((900.0 + (0.1667 * abs(deg))) / 90.0) * deg;
     printf("Ticks to be turned: %d\n", ticks);
+
+    if(ticks < 0) velocity *= -1;
 
     mav_async(RIGHT_MOTOR_DRIVE, velocity);
     mav_async(LEFT_MOTOR_DRIVE, velocity);

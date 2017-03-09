@@ -94,7 +94,7 @@ void smp(int port, const short velocity, const short position);
 * @param velocity Speed at which the motors will move
 * @param deg Angle to which the robot will move
 */
-void turn(const short velocity, const short deg);
+void turn(short velocity, const short deg);
 
 /**
 * @brief This method moves motor 0 at a speed defined in motorProperties
