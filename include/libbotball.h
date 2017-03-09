@@ -11,6 +11,7 @@
 #define LIBBOTBALL_H
 
 #include "utils.h"
+#include "ports.h"
 #include "create.h"
 #include "motor.h"
 #include "servo.h"
