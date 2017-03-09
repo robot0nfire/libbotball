@@ -112,6 +112,7 @@ void create_drives_till_et(const short velocity, const int milliseconds, const s
 }
 
 void create_setup() {
+    create_connect();
     create_write_byte(OI_FULL);
 }
 
