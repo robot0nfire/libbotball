@@ -56,3 +56,52 @@ void smp(int port, const short velocity, const short position) {
         msleep(1);
     freeze(port);
 }
+
+void turn(const short velocity, const short deg) {
+
+    msleep(100); // important!
+    clear_motor_position_counter(RIGHT_MOTOR_DRIVE);
+    clear_motor_position_counter(LEFT_MOTOR_DRIVE);
+
+    printf("Turning %d degrees\n", deg);
+    printf("Motor %d starting ticks: %d\n", RIGHT_MOTOR_DRIVE, get_motor_position_counter(RIGHT_MOTOR_DRIVE));
+    printf("Motor %d starting ticks: %d\n", LEFT_MOTOR_DRIVE, get_motor_position_counter(LEFT_MOTOR_DRIVE));
+
+    int ticks = ((900.0 + (0.1667 * abs(deg))) / 90.0) * deg;
+    printf("Ticks to be turned: %d\n", ticks);
+
+    move_to_position(RIGHT_MOTOR_DRIVE, velocity, ticks);
+    move_to_position(LEFT_MOTOR_DRIVE, velocity, ticks);
+
+    if (deg > 0)
+        while (get_motor_position_counter(RIGHT_MOTOR_DRIVE) < ticks && get_motor_position_counter(LEFT_MOTOR_DRIVE) < ticks) msleep(5);
+    else
+        while (get_motor_position_counter(RIGHT_MOTOR_DRIVE) > ticks && get_motor_position_counter(LEFT_MOTOR_DRIVE) > ticks) msleep(5);
+
+    /* need this hack because the wallaby is a stupid fuck */
+    if (abs(get_motor_position_counter(LEFT_MOTOR_DRIVE)) < 50) {
+        freeze(RIGHT_MOTOR_DRIVE);
+        move_to_position(LEFT_MOTOR_DRIVE, velocity, ticks);
+
+        if (deg > 0)
+            while (get_motor_position_counter(LEFT_MOTOR_DRIVE) < ticks) msleep(5);
+        else
+            while (get_motor_position_counter(LEFT_MOTOR_DRIVE) > ticks) msleep(5);
+    }
+
+    if (abs(get_motor_position_counter(RIGHT_MOTOR_DRIVE)) < 50) {
+        freeze(LEFT_MOTOR_DRIVE);
+        move_to_position(RIGHT_MOTOR_DRIVE, velocity, ticks);
+
+        if (deg > 0)
+            while (get_motor_position_counter(RIGHT_MOTOR_DRIVE) < ticks) msleep(5);
+        else
+            while (get_motor_position_counter(RIGHT_MOTOR_DRIVE) > ticks) msleep(5);
+    }
+
+    freeze(RIGHT_MOTOR_DRIVE);
+    freeze(LEFT_MOTOR_DRIVE);
+
+    printf("Motor %d end ticks: %d\n", RIGHT_MOTOR_DRIVE, get_motor_position_counter(RIGHT_MOTOR_DRIVE));
+    printf("Motor %d end ticks: %d\n", LEFT_MOTOR_DRIVE, get_motor_position_counter(LEFT_MOTOR_DRIVE));
+}

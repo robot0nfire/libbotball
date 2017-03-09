@@ -62,4 +62,13 @@ void follow_line(const int ms);
 */
 void smp(int port, const short velocity, const short position);
 
+/**
+* @brief This method turns for a given amount of degrees
+* @author Nico Leidenfrost
+*
+* @param velocity Speed at which the motors will move
+* @param deg Angle to which the robot will move
+*/
+void turn(const short velocity, const short deg)
+
 #endif /* MOTOR_H */
