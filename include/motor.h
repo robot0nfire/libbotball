@@ -16,6 +16,31 @@
 #define THRESHOLD 3800
 
 /**
+* @brief Properties Array for moving motors asynchronously.
+* Dimensions represent the different motors
+* 0: motor blocked status. 0 = not blocked; 1 = blocked
+* 1: velocity at which the motor will move
+* 2: how long the motor will move
+*/
+static int motorProperties[4][2] = {
+    {0, 0, -1},
+    {0, 0, -1},
+    {0, 0, -1},
+    {0, 0, -1}
+};
+
+/**
+* @brief Wait till motor has finished moving
+*
+* @param motor Port to which the motor is connected
+*/
+static void wait_for_motor(short motor){
+    while(motorProperties[motor][0]){
+        msleep(1);
+    }
+}
+
+/**
 * @brief This method lets the robot drive with two given velocities
 * @author Nico Kratky
 *
@@ -70,5 +95,48 @@ void smp(int port, const short velocity, const short position);
 * @param deg Angle to which the robot will move
 */
 void turn(const short velocity, const short deg);
+
+/**
+* @brief This method moves motor 0 at a speed defined in motorProperties
+* @author Nico Kratky
+*/
+void moveMotor0();
+
+/**
+* @brief This method moves motor 1 at a speed defined in motorProperties
+* @author Nico Kratky
+*/
+void moveMotor1();
+
+/**
+* @brief This method moves motor 2 at a speed defined in motorProperties
+* @author Nico Kratky
+*/
+void moveMotor2();
+
+/**
+* @brief This method moves motor 3 at a speed defined in motorProperties
+* @author Nico Kratky
+*/
+void moveMotor3();
+
+/**
+* @brief This method turns for a given amount of degrees
+* @author Nico Kratky
+*
+* @param port the port to which the motor is connected
+* @param velocity speed at which the motor will move
+*/
+void mav_async(const short port, const short velocity);
+
+/**
+* @brief This method turns for a given amount of degrees
+* @author Nico Kratky
+*
+* @param port the port to which the motor is connected
+* @param velocity speed at which the motor will move
+* @param ms how long the motor will move
+*/
+void mav_async_time(const short port, const short velocity, const short ms);
 
 #endif /* MOTOR_H */
