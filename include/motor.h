@@ -22,7 +22,7 @@
 * 1: velocity at which the motor will move
 * 2: how long the motor will move
 */
-static int motorProperties[4][2] = {
+static int motorProperties[4][3] = {
     {0, 0, -1},
     {0, 0, -1},
     {0, 0, -1},
