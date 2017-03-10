@@ -59,7 +59,7 @@ void smp(int port, const short velocity, const short position) {
 
 void turn(const short velocity, const short deg) {
 
-    msleep(100); // important!
+    msleep(200); // important!
     clear_motor_position_counter(RIGHT_MOTOR_DRIVE);
     clear_motor_position_counter(LEFT_MOTOR_DRIVE);
 
@@ -79,7 +79,7 @@ void turn(const short velocity, const short deg) {
         while (get_motor_position_counter(RIGHT_MOTOR_DRIVE) > ticks && get_motor_position_counter(LEFT_MOTOR_DRIVE) > ticks) msleep(5);
 
     /* need this hack because the wallaby is a stupid fuck */
-    if (abs(get_motor_position_counter(LEFT_MOTOR_DRIVE)) < 50) {
+    /*if (abs(get_motor_position_counter(LEFT_MOTOR_DRIVE)) < 50) {
         freeze(RIGHT_MOTOR_DRIVE);
         mav_async(LEFT_MOTOR_DRIVE, velocity);
 
@@ -97,7 +97,7 @@ void turn(const short velocity, const short deg) {
             while (get_motor_position_counter(RIGHT_MOTOR_DRIVE) < ticks) msleep(5);
         else
             while (get_motor_position_counter(RIGHT_MOTOR_DRIVE) > ticks) msleep(5);
-    }
+    }*/
 
     freeze(RIGHT_MOTOR_DRIVE);
     freeze(LEFT_MOTOR_DRIVE);
@@ -117,6 +117,9 @@ void moveMotor0() {
     }
 
     motorProperties[0][0] = 0;
+    motorProperties[0][2] = -1;
+
+    printf("Finished Motor 0\n");
 }
 
 void moveMotor1() {
@@ -130,6 +133,9 @@ void moveMotor1() {
     }
 
     motorProperties[1][0] = 0;
+    motorProperties[1][2] = -1;
+
+    printf("Finished Motor 1\n");
 }
 
 void moveMotor2() {
@@ -143,6 +149,9 @@ void moveMotor2() {
     }
 
     motorProperties[2][0] = 0;
+    motorProperties[2][2] = -1;
+
+    printf("Finished Motor 2\n");
 }
 
 void moveMotor3() {
@@ -156,6 +165,9 @@ void moveMotor3() {
     }
 
     motorProperties[3][0] = 0;
+    motorProperties[3][2] = -1;
+
+    printf("Finished Motor 3\n");
 }
 
 void mav_async(const short port, const short velocity) {
