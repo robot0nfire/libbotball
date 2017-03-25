@@ -106,7 +106,14 @@ void create_drives_till_et(const short velocity, const int milliseconds, const s
     create_drives_direct(velocity, velocity);
 
     int start = seconds();
-    while(seconds() < start + (milliseconds / 1000) && analog(port) < threshold) msleep(1);
+    clear_buffer();
+
+    int val = sav_gol(analog(port));
+
+    while(seconds() < start + (milliseconds / 1000) && val < threshold) {
+        val = sav_gol(analog(port));
+        msleep(1);
+    }
 
     create_stop();
 }

@@ -20,6 +20,8 @@
 */
 #define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
 
+static int buf[5] = {-1, -1, -1, -1, -1};
+
 /**
 * @brief compares two integeres if they are 'close'
 *
@@ -42,6 +44,17 @@ void start();
 * @author Nico Kratky
 */
 unsigned long get_time();
+
+/**
+* @brief This method clears the buffer used for filtering
+*/
+void clear_buffer();
+
+/**
+* @brief This method filters values using the Savitzky Golay filter
+* @param x value to be filtered
+*/
+int sav_gol(int x);
 
 /**
 * @brief Stopping procedure
