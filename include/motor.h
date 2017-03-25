@@ -121,7 +121,7 @@ void moveMotor2();
 void moveMotor3();
 
 /**
-* @brief This method turns for a given amount of degrees
+* @brief This method moves a motor async
 * @author Nico Kratky
 *
 * @param port the port to which the motor is connected
@@ -130,7 +130,7 @@ void moveMotor3();
 void mav_async(const short port, const short velocity);
 
 /**
-* @brief This method turns for a given amount of degrees
+* @brief This method moved a motor async for a given duration
 * @author Nico Kratky
 *
 * @param port the port to which the motor is connected
@@ -138,5 +138,15 @@ void mav_async(const short port, const short velocity);
 * @param ms how long the motor will move
 */
 void mav_async_time(const short port, const short velocity, const short ms);
+
+/**
+* @brief This method moves a motor for a given duration
+* @author Nico Kratky
+*
+* @param port the port to which the motor is connected
+* @param velocity speed at which the motor will move
+* @param ms how long the motor will move
+*/
+void mav_time(const short port, const short velocity, const short ms);
 
 #endif /* MOTOR_H */

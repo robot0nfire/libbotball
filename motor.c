@@ -217,3 +217,9 @@ void mav_async_time(const short port, const short velocity, const short ms) {
     thread_start(run);
     printf("Started motor thread\n");
 }
+
+void mav_time(const short port, const short velocity, const short ms) {
+    mav(port, velocity);
+    msleep(ms);
+    freeze(port);
+}
