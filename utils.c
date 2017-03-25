@@ -9,6 +9,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "include/utils.h"
 #include "include/ports.h"
 
@@ -56,11 +57,6 @@ unsigned long get_time() {
     return (unsigned long)(systime() - start_time);
 }
 
-void stop() {
-    printf("Stopped after %lu Seconds\n", get_time() / 1000);
-    disable_servos();
-}
-
 void clear_buffer() {
     memset(buf, -1, 5 * sizeof(buf[0]));
 }
@@ -77,4 +73,9 @@ int sav_gol(int x) {
     if(filled)
         return (int)(((double)(1.0 / 35.0)) * ((double)(-3 * buf[0] + 12 * buf[1] + 17 * buf[2] + 12 * buf[3] - 3 * buf[3])));
     return x;
+}
+
+void stop() {
+    printf("Stopped after %lu Seconds\n", get_time() / 1000);
+    disable_servos();
 }
