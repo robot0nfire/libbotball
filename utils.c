@@ -61,7 +61,7 @@ void clear_buffer() {
     memset(buf, -1, 5 * sizeof(buf[0]));
 }
 
-int sav_gol(int x) {
+int sav_gol(int x, int* buf) {
     int filled = (buf[0] == -1) ? 0 : 1;
 
     int i = 0;

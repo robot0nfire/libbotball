@@ -106,12 +106,13 @@ void create_drives_till_et(const short velocity, const int milliseconds, const s
     create_drives_direct(velocity, velocity);
 
     int start = seconds();
-    clear_buffer();
+
+    int* buf = {-1, -1, -1, -1, -1};
 
     int val = sav_gol(analog(port));
 
     while(seconds() < start + (milliseconds / 1000) && val < threshold) {
-        val = sav_gol(analog(port));
+        val = sav_gol(analog(port), buf);
         msleep(1);
     }
 

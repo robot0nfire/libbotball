@@ -20,8 +20,6 @@
 */
 #define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
 
-static int buf[5] = {-1, -1, -1, -1, -1};
-
 /**
 * @brief compares two integeres if they are 'close'
 *
