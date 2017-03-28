@@ -44,15 +44,10 @@ void start();
 unsigned long get_time();
 
 /**
-* @brief This method clears the buffer used for filtering
-*/
-void clear_buffer();
-
-/**
 * @brief This method filters values using the Savitzky Golay filter
 * @param x value to be filtered
 */
-int sav_gol(int x);
+int sav_gol(int x, **int buf);
 
 /**
 * @brief Stopping procedure
