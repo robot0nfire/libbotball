@@ -57,7 +57,7 @@ unsigned long get_time() {
     return (unsigned long)(systime() - start_time);
 }
 
-int sav_gol(int x, int **buf) {
+int sav_gol(int x, int *buf) {
     int filled = (buf[0] == -1) ? 0 : 1;
 
     int i = 0;
