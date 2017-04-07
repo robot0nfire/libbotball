@@ -72,6 +72,6 @@ int sav_gol(int x, int *buf) {
 }
 
 void stop() {
-    printf("Stopped after %lu Seconds\n", get_time() / 1000);
+    printf("Stopped after %lf Seconds\n", (double) (get_time() / 1000.0));
     disable_servos();
 }
