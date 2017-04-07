@@ -72,8 +72,8 @@ void turn(short velocity, const short deg) {
 
     if(ticks < 0) velocity *= -1;
 
-    mav_async(RIGHT_MOTOR_DRIVE, velocity);
-    mav_async(LEFT_MOTOR_DRIVE, velocity);
+    mav(RIGHT_MOTOR_DRIVE, velocity);
+    mav(LEFT_MOTOR_DRIVE, velocity);
 
     if (deg > 0)
         while (get_motor_position_counter(RIGHT_MOTOR_DRIVE) < ticks && get_motor_position_counter(LEFT_MOTOR_DRIVE) < ticks) msleep(5);
@@ -81,9 +81,9 @@ void turn(short velocity, const short deg) {
         while (get_motor_position_counter(RIGHT_MOTOR_DRIVE) > ticks && get_motor_position_counter(LEFT_MOTOR_DRIVE) > ticks) msleep(5);
 
     /* need this hack because the wallaby is a stupid fuck */
-    /*if (abs(get_motor_position_counter(LEFT_MOTOR_DRIVE)) < 50) {
+    if (abs(get_motor_position_counter(LEFT_MOTOR_DRIVE)) < 50) {
         freeze(RIGHT_MOTOR_DRIVE);
-        mav_async(LEFT_MOTOR_DRIVE, velocity);
+        mav(LEFT_MOTOR_DRIVE, velocity);
 
         if (deg > 0)
             while (get_motor_position_counter(LEFT_MOTOR_DRIVE) < ticks) msleep(5);
@@ -93,13 +93,13 @@ void turn(short velocity, const short deg) {
 
     if (abs(get_motor_position_counter(RIGHT_MOTOR_DRIVE)) < 50) {
         freeze(LEFT_MOTOR_DRIVE);
-        mav_async(RIGHT_MOTOR_DRIVE, velocity);
+        mav(RIGHT_MOTOR_DRIVE, velocity);
 
         if (deg > 0)
             while (get_motor_position_counter(RIGHT_MOTOR_DRIVE) < ticks) msleep(5);
         else
             while (get_motor_position_counter(RIGHT_MOTOR_DRIVE) > ticks) msleep(5);
-    }*/
+    }
 
     freeze(RIGHT_MOTOR_DRIVE);
     freeze(LEFT_MOTOR_DRIVE);
