@@ -10,6 +10,7 @@
 #include <kipr/botball.h>
 #include "include/ports.h"
 #include "include/motor.h"
+#include "math.h"
 
 void drive_direct(const short velocity_l, const short velocity_r) {
     mav(LEFT_MOTOR_DRIVE, velocity_l);
@@ -21,6 +22,51 @@ void drive_straight(const short velocity, const short ms) {
     mav(RIGHT_MOTOR_DRIVE, (short)(velocity * -1.0));
 
     msleep(ms);
+
+    freeze(LEFT_MOTOR_DRIVE);
+    freeze(RIGHT_MOTOR_DRIVE);
+}
+
+void drive_distance(const short velocity, const short distance) {
+    cmpc(LEFT_MOTOR_DRIVE);
+    cmpc(RIGHT_MOTOR_DRIVE);
+
+    int abs_distance = abs(distance);
+
+    int leftTicks = (abs_distance / WHEELPERIMETER) * LEFTTICKS;
+    int rightTicks = (abs_distance / WHEELPERIMETER) * RIGHTTICKS;
+
+    int mean;
+    float error;
+
+    int left_speed = velocity, right_speed = velocity;
+
+    int diff = abs(LEFTTICKS - RIGHTTICKS);
+
+    if (LEFTTICKS > RIGHTTICKS) {
+        mean = LEFTTICKS - (diff / 2);
+        error = (diff / 1.0f) / mean;
+        left_speed = velocity - (velocity * error);
+    }
+    else {
+        mean = RIGHTTICKS - (diff / 2);
+        error = (diff / 1.0f) / mean;
+        right_speed = velocity - (velocity * error);
+    }
+
+    if (distance < 0) {
+        mav(LEFT_MOTOR_DRIVE, -left_speed);
+        mav(RIGHT_MOTOR_DRIVE, right_speed);
+    }
+    else {
+        mav(LEFT_MOTOR_DRIVE, left_speed);
+        mav(RIGHT_MOTOR_DRIVE, -right_speed);
+    }
+
+    printf("Driving at velocity %d for %d mm\n", velocity, distance);
+    printf("---- Left Ticks: %d, Right Ticks: %d, Left Speed: %d, Right Speed: %d\n", leftTicks, rightTicks, left_speed, right_speed);
+
+    while(abs(gmpc(RIGHT_MOTOR_DRIVE)) < rightTicks && abs(gmpc(LEFT_MOTOR_DRIVE)) < leftTicks) msleep(1);
 
     freeze(LEFT_MOTOR_DRIVE);
     freeze(RIGHT_MOTOR_DRIVE);

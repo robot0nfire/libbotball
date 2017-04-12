@@ -15,6 +15,11 @@
 */
 #define THRESHOLD 3800
 
+#define LEFTTICKS 1350
+#define RIGHTTICKS 1365
+
+#define WHEELPERIMETER 175
+
 /**
 * @brief Properties Array for moving motors asynchronously.
 * Dimensions represent the different motors
@@ -57,6 +62,8 @@ void drive_direct(const short velocity_l, const short velocity_r);
 * @param ms How long the robot will drive
 */
 void drive_straight(const short velocity, const short ms);
+
+void drive_distance(const short velocity, const short distance);
 
 /**
 * @brief This method lets the robot drive with two given velocities for a given duration
