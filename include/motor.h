@@ -15,10 +15,10 @@
 */
 #define THRESHOLD 3800
 
-#define LEFTTICKS 1350
+#define LEFTTICKS 1360
 #define RIGHTTICKS 1365
 
-#define WHEELPERIMETER 175
+#define WHEELPERIMETER 172
 
 /**
 * @brief Properties Array for moving motors asynchronously.

@@ -31,7 +31,7 @@
 /**
 * @brief Port to which the left driving motor is connected
 */
-#define LEFT_MOTOR_DRIVE 1
+#define LEFT_MOTOR_DRIVE 3
 /**
 * @brief Port to which the right driving motor is connected
 */
