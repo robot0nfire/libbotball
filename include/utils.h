@@ -20,6 +20,10 @@
 */
 #define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
 
+#define degToRad(deg) (deg * M_PI / 180.0)
+
+#define radToDeg(rad) (rad * 180.0 / M_PI)
+
 /**
 * @brief compares two integeres if they are 'close'
 *

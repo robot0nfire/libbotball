@@ -13,7 +13,8 @@
 #define LOW_BYTE(x) ((x) & 0xFF)
 #define HIGH_BYTE(x) (((x) & 0xFF00) >> 8)
 
-#define CIRCUMFERENCE 1065
+#define RADIUS 117.5
+#define CIRCUMFERENCE (2 * RADIUS * M_PI)
 
 #define CREATE_SPEED_SLOW -100
 #define CREATE_SPEED_MEDIUM -200

@@ -84,10 +84,13 @@ void create_spins_counterclockwise(const short velocity) {
 }
 
 void create_spins_degrees(const short velocity, const short angle) {
-    double oneDegree = CIRCUMFERENCE / 360;
-    double mm = oneDegree * abs(angle);
+    double w = ((double) velocity) /  ((double) RADIUS);
+    double timeToGoal = degToRad(angle) / w;
 
-    double timeToGoal = mm / (velocity + 8);
+    printf("v: %d\n", velocity);
+    printf("r: %d\n", RADIUS);
+    printf("w: %lf\n", w);
+    printf("ttg: %lf\n", timeToGoal);
 
     create_spins_direct(velocity, angle);
     msleep(timeToGoal * 1000);
