@@ -13,13 +13,13 @@
 #include "math.h"
 
 void drive_direct(const short velocity_l, const short velocity_r) {
-    mav(LEFT_MOTOR_DRIVE, velocity_l);
-    mav(RIGHT_MOTOR_DRIVE, -velocity_r);
+    mav(LEFT_MOTOR_DRIVE, -velocity_l);
+    mav(RIGHT_MOTOR_DRIVE, velocity_r);
 }
 
 void drive_straight(const short velocity, const short ms) {
-    mav(LEFT_MOTOR_DRIVE, (short)(velocity * 1.0));
-    mav(RIGHT_MOTOR_DRIVE, (short)(velocity * -1.0));
+    mav(LEFT_MOTOR_DRIVE, -velocity_l);
+    mav(RIGHT_MOTOR_DRIVE, velocity_r);
 
     msleep(ms);
 
@@ -31,6 +31,8 @@ void drive_distance(const short velocity, const short distance) {
     msleep(100);
     cmpc(LEFT_MOTOR_DRIVE);
     cmpc(RIGHT_MOTOR_DRIVE);
+
+    velocity *= -1;
 
     int abs_distance = abs(distance);
 
@@ -134,7 +136,7 @@ void turn(short velocity, const short deg) {
     printf("Motor %d starting ticks: %d\n", RIGHT_MOTOR_DRIVE, get_motor_position_counter(RIGHT_MOTOR_DRIVE));
     printf("Motor %d starting ticks: %d\n", LEFT_MOTOR_DRIVE, get_motor_position_counter(LEFT_MOTOR_DRIVE));
 
-    int ticks = ((900.0 + (0.1667 * abs(deg))) / 90.0) * deg;
+    int ticks = ((1010.0 + (0.1667 * abs(deg))) / 90.0) * deg;
     printf("Ticks to be turned: %d\n", ticks);
 
     if(ticks < 0) velocity *= -1;
