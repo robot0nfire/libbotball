@@ -107,7 +107,7 @@ static int stopped;
 
 void drive_distance_thread() {
     stopped = 0;
-    drive_distance(distance);
+    drive_distance(1500, distance);
     stopped = 1;
 }
 
@@ -117,7 +117,7 @@ void drive_till_et(const short velocity, const int _distance, const short port, 
     distance = _distance;
 
     run = thread_create(drive_distance_thread);
-    thread_start();
+    thread_start(run);
 
     int buf[] = {-1, -1, -1, -1, -1};
 
