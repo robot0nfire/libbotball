@@ -72,6 +72,13 @@ int sav_gol(int x, int *buf) {
     return x;
 }
 
+int moving_avg(int *numbers, int *sum, int pos, int len, int nextNumber) {
+    *sum = *sum - numbers[pos] + nextNumber;
+    numbers[pos] = nextNumber;
+
+    return *sum / len;
+}
+
 void stop() {
     printf("Stopped after %lf Seconds\n", (double) (get_time() / 1000.0));
     disable_servos();

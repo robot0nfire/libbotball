@@ -53,6 +53,8 @@ unsigned long get_time();
 */
 int sav_gol(int x, int *buf);
 
+int moving_avg(int *numbers, int *sum, int pos, int len, int nextNumber);
+
 /**
 * @brief Stopping procedure
 * @author Nico Leidenfrost

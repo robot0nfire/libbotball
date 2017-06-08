@@ -102,6 +102,38 @@ void drive(const short velocity_l, int velocity_r, const int ms) {
     freeze(RIGHT_MOTOR_DRIVE);
 }
 
+static int distance;
+static int stopped;
+
+void drive_distance_thread() {
+    stopped = 0;
+    drive_distance(distance);
+    stopped = 1;
+}
+
+void drive_till_et(const short velocity, const int _distance, const short port, const short threshold) {
+
+    thread run;
+    distance = _distance;
+
+    run = thread_create(drive_distance_thread);
+    thread_start();
+
+    int buf[] = {-1, -1, -1, -1, -1};
+
+    int val = sav_gol(analog(port), buf);
+
+    while(!stopped && val < threshold) {
+        val = sav_gol(analog(port), buf);
+        msleep(2);
+    }
+
+    thread_destroy(run);
+    freeze(LEFT_MOTOR_DRIVE);
+    freeze(RIGHT_MOTOR_DRIVE);
+
+}
+
 void follow_line(const int ms) {
     float end_time = seconds() + (ms / 1000);
 
