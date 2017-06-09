@@ -95,6 +95,76 @@ void drive_distance(short velocity, const short distance) {
     printf("---- Stopped! Left Ticks %d, Right Ticks: %d\n", abs(gmpc(LEFT_MOTOR_DRIVE)), abs(gmpc(RIGHT_MOTOR_DRIVE)));
 }
 
+void drive_distance_et(short velocity, const short distance, const short port, const short threshold) {
+    msleep(100);
+    cmpc(LEFT_MOTOR_DRIVE);
+    cmpc(RIGHT_MOTOR_DRIVE);
+
+    velocity *= -1;
+
+    int abs_distance = abs(distance);
+
+    int leftTicks = (float) ((float) abs_distance / (float) WHEELPERIMETER) * (float) LEFTTICKS;
+    int rightTicks = (float) ((float) abs_distance / (float) WHEELPERIMETER) * (float) RIGHTTICKS;
+
+    int mean;
+    float error;
+
+    int left_speed = velocity, right_speed = velocity;
+
+    int diff = abs(LEFTTICKS - RIGHTTICKS);
+
+    if (LEFTTICKS > RIGHTTICKS) {
+        mean = LEFTTICKS - (diff / 2);
+        error = (diff / 1.0f) / mean;
+        left_speed = velocity - (velocity * error);
+    }
+    else {
+        mean = RIGHTTICKS - (diff / 2);
+        error = (diff / 1.0f) / mean;
+        right_speed = velocity - (velocity * error);
+    }
+
+    if (distance < 0) {
+        left_speed *= -1;
+    }
+    else {
+        right_speed *= -1;
+    }
+
+    mav(LEFT_MOTOR_DRIVE, left_speed);
+    mav(RIGHT_MOTOR_DRIVE, right_speed);
+
+    printf("Driving at velocity %d for %d mm\n", velocity, distance);
+    printf("---- Left Ticks: %d, Right Ticks: %d, Left Speed: %d, Right Speed: %d\n", leftTicks, rightTicks, left_speed, right_speed);
+
+    int mpl = abs(gmpc(LEFT_MOTOR_DRIVE)), mpr = abs(gmpc(RIGHT_MOTOR_DRIVE));
+    int val = sav_gol(analog(port), buf);
+    while(mpr < rightTicks && mpl < leftTicks && val < threshold) {
+        if(abs(mpl - mpr) > 50) {
+            if(mpl > mpr) {
+                mav(LEFT_MOTOR_DRIVE, left_speed*0.95);
+            }
+            else {
+                mav(RIGHT_MOTOR_DRIVE, right_speed*0.95);
+            }
+        }
+        else {
+            mav(LEFT_MOTOR_DRIVE, left_speed);
+            mav(RIGHT_MOTOR_DRIVE, right_speed);
+            msleep(1);
+        }
+        mpl = abs(gmpc(LEFT_MOTOR_DRIVE));
+        mpr = abs(gmpc(RIGHT_MOTOR_DRIVE));
+        val = sav_gol(analog(port), buf);
+    }
+
+    freeze(LEFT_MOTOR_DRIVE);
+    freeze(RIGHT_MOTOR_DRIVE);
+
+    printf("---- Stopped! Left Ticks %d, Right Ticks: %d\n", abs(gmpc(LEFT_MOTOR_DRIVE)), abs(gmpc(RIGHT_MOTOR_DRIVE)));
+}
+
 void drive(const short velocity_l, int velocity_r, const int ms) {
     drive_direct(velocity_l, velocity_r);
     msleep(ms);
