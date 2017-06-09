@@ -65,6 +65,8 @@ void drive_straight(const short velocity, const short ms);
 
 void drive_distance(short velocity, const short distance);
 
+void drive_distance_et(short velocity, const short distance, const short port, const short threshold);
+
 void drive_distance_thread();
 
 void drive_till_et(const short velocity, const int milliseconds, const short port, const short threshold);
