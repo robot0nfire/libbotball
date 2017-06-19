@@ -139,6 +139,7 @@ void drive_distance_et(short velocity, const short distance, const short port, c
     printf("---- Left Ticks: %d, Right Ticks: %d, Left Speed: %d, Right Speed: %d\n", leftTicks, rightTicks, left_speed, right_speed);
 
     int mpl = abs(gmpc(LEFT_MOTOR_DRIVE)), mpr = abs(gmpc(RIGHT_MOTOR_DRIVE));
+    int buf[] = {-1, -1, -1, -1, -1};
     int val = sav_gol(analog(port), buf);
     while(mpr < rightTicks && mpl < leftTicks && val < threshold) {
         if(abs(mpl - mpr) > 50) {
