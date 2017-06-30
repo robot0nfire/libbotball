@@ -15,9 +15,19 @@
 */
 #define THRESHOLD 3800
 
+/**
+* @brief Amount of ticks the left motor needs for a full rotation
+*/
 #define LEFTTICKS 1267
+
+/**
+* @brief Amount of ticks the right motor needs for a full rotation
+*/
 #define RIGHTTICKS 1365
 
+/**
+* @brief Perimeter of the wheels in mm
+*/
 #define WHEELPERIMETER 151
 
 /**
@@ -63,8 +73,24 @@ void drive_direct(const short velocity_l, const short velocity_r);
 */
 void drive_straight(const short velocity, const short ms);
 
+/**
+* @brief This method lets the robot drive straight for a given distance
+* @author Nico Kratky
+*
+* @param velocity Velocity at which the motors will be moved
+* @param distance Distance the robot will drive in mm
+*/
 void drive_distance(short velocity, const short distance);
 
+/**
+* @brief This method lets the robot drive straight until the et is triggered or the distance is covered
+* @author Nico Kratky
+*
+* @param velocity Velocity at which the motors will be moved
+* @param distance Distance the robot will drive in mm
+* @param port Port to which the et sensor is connected
+* @param threshold Threshold for the et sensor
+*/
 void drive_till_et(short velocity, const short distance, const short port, const short threshold);
 
 /**
@@ -91,7 +117,7 @@ void follow_line(const int ms);
 * @author Nico Kratky
 *
 * @param port Port to which the motor is connected
-* @oaram velocity Speed at which the motor will move
+* @param velocity Speed at which the motor will move
 * @param position Position to which to motor should be moved
 */
 void smp(int port, const short velocity, const short position);

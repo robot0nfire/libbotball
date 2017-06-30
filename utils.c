@@ -14,6 +14,10 @@
 #include "include/utils.h"
 #include "include/ports.h"
 
+/**
+* @brief time when program was started
+* is used to calculate run time of program
+*/
 unsigned long start_time;
 
 int float_close(float a, float b, float abs_tol) {
@@ -70,13 +74,6 @@ int sav_gol(int x, int *buf) {
     if(filled)
         return (int)(((double)(1.0 / 35.0)) * ((double)(-3 * buf[0] + 12 * buf[1] + 17 * buf[2] + 12 * buf[3] - 3 * buf[3])));
     return x;
-}
-
-int moving_avg(int *numbers, int *sum, int pos, int len, int nextNumber) {
-    *sum = *sum - numbers[pos] + nextNumber;
-    numbers[pos] = nextNumber;
-
-    return *sum / len;
 }
 
 void stop() {

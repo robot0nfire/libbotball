@@ -99,36 +99,24 @@ void ssp_stepwise_asym(short port1, short port2, short position, int stepsize, i
 /**
 * @brief This method moves servo 1 to the position defined in the positions array
 * @author Nico Kratky
-*
-* @param stepsize How 'slow' the servo should be moved. If set to -1 the servo will not be moved stepwise
-* @param sleep How long the servo sleeps in between steps. If set to -1 the servo will not be moved stepwise
 */
 void setServo0();
 
 /**
 * @brief This method moves servo 2 to the position defined in the positions array
 * @author Nico Kratky
-*
-* @param stepsize How 'slow' the servo should be moved. If set to -1 the servo will not be moved stepwise
-* @param sleep How long the servo sleeps in between steps. If set to -1 the servo will not be moved stepwise
 */
 void setServo1();
 
 /**
 * @brief This method moves servo 3 to the position defined in the positions array
 * @author Nico Kratky
-*
-* @param stepsize How 'slow' the servo should be moved. If set to -1 the servo will not be moved stepwise
-* @param sleep How long the servo sleeps in between steps. If set to -1 the servo will not be moved stepwise
 */
 void setServo2();
 
 /**
 * @brief This method moves servo 4 to the position defined in the positions array
 * @author Nico Kratky
-*
-* @param stepsize How 'slow' the servo should be moved. If set to -1 the servo will not be moved stepwise
-* @param sleep How long the servo sleeps in between steps. If set to -1 the servo will not be moved stepwise
 */
 void setServo3();
 
@@ -147,6 +135,8 @@ void ssp_async(short port, short position);
 *
 * @param port The port at which the servo is connected to the wallaby
 * @param position The position to which the servo should be moved
+* @param stepsize How 'slow' the servos should be moved
+* @param sleep How long the servos sleep in between steps
 */
 void ssp_stepwise_async(short port, short position, int stepsize, int sleep);
 

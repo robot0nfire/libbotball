@@ -10,6 +10,9 @@
 #ifndef UTILS_H /* Include guard */
 #define UTILS_H
 
+#define LOW_BYTE(x) ((x) & 0xFF)
+#define HIGH_BYTE(x) (((x) & 0xFF00) >> 8)
+
 /**
 * @brief returns the bigger value of two given ones
 */
@@ -20,8 +23,14 @@
 */
 #define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
 
+/**
+* @brief converts degrees to radians
+*/
 #define degToRad(deg) (deg * M_PI / 180.0)
 
+/**
+* @brief converts radians to degrees
+*/
 #define radToDeg(rad) (rad * 180.0 / M_PI)
 
 /**
@@ -50,10 +59,9 @@ unsigned long get_time();
 /**
 * @brief This method filters values using the Savitzky Golay filter
 * @param x value to be filtered
+* @param buf buffer of last 5 values
 */
 int sav_gol(int x, int *buf);
-
-int moving_avg(int *numbers, int *sum, int pos, int len, int nextNumber);
 
 /**
 * @brief Stopping procedure

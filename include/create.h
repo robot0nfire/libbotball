@@ -10,10 +10,14 @@
 #ifndef LIBCREATE_H /* Include guard */
 #define LIBCREATE_H
 
-#define LOW_BYTE(x) ((x) & 0xFF)
-#define HIGH_BYTE(x) (((x) & 0xFF00) >> 8)
-
+/**
+* @brief Radius of the create
+*/
 #define RADIUS 117.5
+
+/**
+* @brief Circumference of the create
+*/
 #define CIRCUMFERENCE (2 * RADIUS * M_PI)
 
 #define CREATE_SPEED_SLOW -100
@@ -105,7 +109,10 @@ void create_drives_till_bump(const short velocity);
 * @brief This method drives at a given speed until the ET sensor is triggered
 * @author Nico Kratky
 *
-* @param velocity The speed at which the create will drive
+* @param velocity Velocity at which the create will drive
+* @param milliseconds backup time
+* @param port Port to which the et sensor is connected
+* @param threshold Threshold for the et sensor
 */
 void create_drives_till_et(const short velocity, const int milliseconds, const short port, const short threshold);
 
