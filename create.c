@@ -85,7 +85,7 @@ void create_spins_counterclockwise(const short velocity) {
 
 void create_spins_degrees(const short velocity, const short angle) {
     double w = ((double) velocity) /  ((double) RADIUS);
-    double timeToGoal = degToRad(angle) / w;
+    double timeToGoal = fabs(degToRad(angle) / w);
 
     printf("v: %d\n", velocity);
     printf("r: %d\n", RADIUS);
