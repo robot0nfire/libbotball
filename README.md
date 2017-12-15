@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up and running on your con
 
 ### Prerequisites
 
-Basically none. The only things you need is a Botball controller.
+Basically none. The only thing you need is a Botball controller.
 
 ### Installing
 
