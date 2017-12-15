@@ -36,36 +36,38 @@
 /**
 * @brief compares two integeres if they are 'close'
 *
-* @param a the first value to compare
-* @param b the second value to compare
-* @param abs_tol absolute tolerance which is used when comparing
+* @param a          the first value to compare
+* @param b          the second value to compare
+* @param abs_tol    absolute tolerance which is used when comparing
 
 * @return 1 if the values are close to each other, otherwise 0
 */
 int float_close(float a, float b, float abs_tol);
 
+
 /**
 * @brief This method is used to determine which starting procedure should be used
-* @author Nico Kratky
 */
 void start();
 
+
 /**
-* @brief This method gets the time since the program started.
-* @author Nico Kratky
+* @brief Get the duration since the program started
 */
 unsigned long get_time();
 
+
 /**
-* @brief This method filters values using the Savitzky Golay filter
-* @param x value to be filtered
-* @param buf buffer of last 5 values
+* @brief Filter values using the Savitzky Golay filter
+*
+* @param x      value to be filtered
+* @param buf    buffer of last 5 values
 */
 int sav_gol(int x, int *buf);
 
+
 /**
 * @brief Stopping procedure
-* @author Nico Leidenfrost
 */
 void stop();
 

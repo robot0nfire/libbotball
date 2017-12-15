@@ -1,6 +1,6 @@
 /**
 * @file libbotball.h
-* @brief Libbotball is robot0nfire's library for interacting with Botball robots.
+* @brief Libbotball is robot0nfire's library for interacting with Botball robots
 *
 * @author Nico Kratky
 *

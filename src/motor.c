@@ -8,14 +8,16 @@
 */
 
 #include <kipr/botball.h>
-#include "include/ports.h"
-#include "include/motor.h"
+
+#include "ports.h"
+#include "motor.h"
 #include "math.h"
 
 void drive_direct(const short velocity_l, const short velocity_r) {
     mav(LEFT_MOTOR_DRIVE, -velocity_l);
     mav(RIGHT_MOTOR_DRIVE, velocity_r);
 }
+
 
 void drive_straight(const short velocity, const short ms) {
     mav(LEFT_MOTOR_DRIVE, -velocity);
@@ -27,6 +29,7 @@ void drive_straight(const short velocity, const short ms) {
     freeze(RIGHT_MOTOR_DRIVE);
 }
 
+
 void drive_distance(short velocity, const short distance) {
     msleep(100);
     cmpc(LEFT_MOTOR_DRIVE);
@@ -36,8 +39,10 @@ void drive_distance(short velocity, const short distance) {
 
     int abs_distance = abs(distance);
 
-    int leftTicks = (float) ((float) abs_distance / (float) WHEELPERIMETER) * (float) LEFTTICKS;
-    int rightTicks = (float) ((float) abs_distance / (float) WHEELPERIMETER) * (float) RIGHTTICKS;
+    int leftTicks = (float) ((float) abs_distance / (float) WHEELPERIMETER) *
+                    (float) LEFTTICKS;
+    int rightTicks = (float) ((float) abs_distance / (float) WHEELPERIMETER) *
+                     (float) RIGHTTICKS;
 
     int mean;
     float error;
@@ -95,7 +100,11 @@ void drive_distance(short velocity, const short distance) {
     printf("---- Stopped! Left Ticks %d, Right Ticks: %d\n", abs(gmpc(LEFT_MOTOR_DRIVE)), abs(gmpc(RIGHT_MOTOR_DRIVE)));
 }
 
-void drive_till_et(short velocity, const short distance, const short port, const short threshold) {
+
+void drive_till_et(short velocity,
+                   const short distance,
+                   const short port,
+                   const short threshold) {
     msleep(100);
     cmpc(LEFT_MOTOR_DRIVE);
     cmpc(RIGHT_MOTOR_DRIVE);
@@ -104,8 +113,10 @@ void drive_till_et(short velocity, const short distance, const short port, const
 
     int abs_distance = abs(distance);
 
-    int leftTicks = (float) ((float) abs_distance / (float) WHEELPERIMETER) * (float) LEFTTICKS;
-    int rightTicks = (float) ((float) abs_distance / (float) WHEELPERIMETER) * (float) RIGHTTICKS;
+    int leftTicks = (float) ((float) abs_distance / (float) WHEELPERIMETER) *
+                    (float) LEFTTICKS;
+    int rightTicks = (float) ((float) abs_distance / (float) WHEELPERIMETER) *
+                     (float) RIGHTTICKS;
 
     int mean;
     float error;
@@ -166,6 +177,7 @@ void drive_till_et(short velocity, const short distance, const short port, const
     printf("---- Stopped! Left Ticks %d, Right Ticks: %d\n", abs(gmpc(LEFT_MOTOR_DRIVE)), abs(gmpc(RIGHT_MOTOR_DRIVE)));
 }
 
+
 void drive(const short velocity_l, int velocity_r, const int ms) {
     drive_direct(velocity_l, velocity_r);
     msleep(ms);
@@ -173,18 +185,22 @@ void drive(const short velocity_l, int velocity_r, const int ms) {
     freeze(RIGHT_MOTOR_DRIVE);
 }
 
+
 void follow_line(const int ms) {
     float end_time = seconds() + (ms / 1000);
 
     while (seconds() < end_time) {
-        if ((analog(TOPHAT_RIGHT) < THRESHOLD) && (analog(TOPHAT_LEFT) > THRESHOLD))
+        if ((analog(TOPHAT_RIGHT) < THRESHOLD) &&
+            (analog(TOPHAT_LEFT) > THRESHOLD))
             drive(500, 1500, 10);
-        else if ((analog(TOPHAT_LEFT) < THRESHOLD) && (analog(TOPHAT_RIGHT) > THRESHOLD))
+        else if ((analog(TOPHAT_LEFT) < THRESHOLD) &&
+                (analog(TOPHAT_RIGHT) > THRESHOLD))
             drive(1500, 500, 10);
         else
             drive(1500, 1500, 10);
     }
 }
+
 
 void smp(int port, const short velocity, const short position) {
     if(position < get_motor_position_counter(port))
@@ -197,6 +213,7 @@ void smp(int port, const short velocity, const short position) {
     freeze(port);
 }
 
+
 void turn(short velocity, const short deg) {
 
     msleep(200); // important!
@@ -204,8 +221,10 @@ void turn(short velocity, const short deg) {
     clear_motor_position_counter(LEFT_MOTOR_DRIVE);
 
     printf("Turning %d degrees\n", deg);
-    printf("Motor %d starting ticks: %d\n", RIGHT_MOTOR_DRIVE, get_motor_position_counter(RIGHT_MOTOR_DRIVE));
-    printf("Motor %d starting ticks: %d\n", LEFT_MOTOR_DRIVE, get_motor_position_counter(LEFT_MOTOR_DRIVE));
+    printf("Motor %d starting ticks: %d\n", RIGHT_MOTOR_DRIVE,
+            get_motor_position_counter(RIGHT_MOTOR_DRIVE));
+    printf("Motor %d starting ticks: %d\n", LEFT_MOTOR_DRIVE,
+            get_motor_position_counter(LEFT_MOTOR_DRIVE));
 
     int ticks = ((1010.0 + (0.1667 * abs(deg))) / 90.0) * deg;
     printf("Ticks to be turned: %d\n", ticks);
@@ -216,9 +235,11 @@ void turn(short velocity, const short deg) {
     mav(LEFT_MOTOR_DRIVE, velocity);
 
     if (deg > 0)
-        while (get_motor_position_counter(RIGHT_MOTOR_DRIVE) < ticks && get_motor_position_counter(LEFT_MOTOR_DRIVE) < ticks) msleep(5);
+        while (get_motor_position_counter(RIGHT_MOTOR_DRIVE) < ticks &&
+               get_motor_position_counter(LEFT_MOTOR_DRIVE) < ticks) msleep(5);
     else
-        while (get_motor_position_counter(RIGHT_MOTOR_DRIVE) > ticks && get_motor_position_counter(LEFT_MOTOR_DRIVE) > ticks) msleep(5);
+        while (get_motor_position_counter(RIGHT_MOTOR_DRIVE) > ticks &&
+               get_motor_position_counter(LEFT_MOTOR_DRIVE) > ticks) msleep(5);
 
     /* need this hack because the wallaby is a stupid fuck */
     if (abs(get_motor_position_counter(LEFT_MOTOR_DRIVE)) < 50) {
@@ -226,9 +247,13 @@ void turn(short velocity, const short deg) {
         mav(LEFT_MOTOR_DRIVE, velocity);
 
         if (deg > 0)
-            while (get_motor_position_counter(LEFT_MOTOR_DRIVE) < ticks) msleep(5);
+            while (get_motor_position_counter(LEFT_MOTOR_DRIVE) < ticks) {
+                msleep(5);
+            }
         else
-            while (get_motor_position_counter(LEFT_MOTOR_DRIVE) > ticks) msleep(5);
+            while (get_motor_position_counter(LEFT_MOTOR_DRIVE) > ticks) {
+                msleep(5);
+            }
     }
 
     if (abs(get_motor_position_counter(RIGHT_MOTOR_DRIVE)) < 50) {
@@ -236,9 +261,13 @@ void turn(short velocity, const short deg) {
         mav(RIGHT_MOTOR_DRIVE, velocity);
 
         if (deg > 0)
-            while (get_motor_position_counter(RIGHT_MOTOR_DRIVE) < ticks) msleep(5);
+            while (get_motor_position_counter(RIGHT_MOTOR_DRIVE) < ticks) {
+                msleep(5);
+            }
         else
-            while (get_motor_position_counter(RIGHT_MOTOR_DRIVE) > ticks) msleep(5);
+            while (get_motor_position_counter(RIGHT_MOTOR_DRIVE) > ticks) {
+                msleep(5);
+            }
     }
 
     freeze(RIGHT_MOTOR_DRIVE);
@@ -247,6 +276,7 @@ void turn(short velocity, const short deg) {
     printf("Motor %d end ticks: %d\n", RIGHT_MOTOR_DRIVE, get_motor_position_counter(RIGHT_MOTOR_DRIVE));
     printf("Motor %d end ticks: %d\n", LEFT_MOTOR_DRIVE, get_motor_position_counter(LEFT_MOTOR_DRIVE));
 }
+
 
 void moveMotor0() {
     printf("Move Motor 0 at %d\n", motorProperties[0][1]);
@@ -264,6 +294,7 @@ void moveMotor0() {
     printf("Finished Motor 0\n");
 }
 
+
 void moveMotor1() {
     printf("Move Motor 1 at %d\n", motorProperties[1][1]);
 
@@ -279,6 +310,7 @@ void moveMotor1() {
 
     printf("Finished Motor 1\n");
 }
+
 
 void moveMotor2() {
     printf("Move Motor 2 at %d\n", motorProperties[2][1]);
@@ -296,6 +328,7 @@ void moveMotor2() {
     printf("Finished Motor 2\n");
 }
 
+
 void moveMotor3() {
     printf("Move Motor 3 at %d\n", motorProperties[3][1]);
 
@@ -311,6 +344,7 @@ void moveMotor3() {
 
     printf("Finished Motor 3\n");
 }
+
 
 void mav_async(const short port, const short velocity) {
     wait_for_motor(port);
@@ -357,6 +391,7 @@ void mav_async_time(const short port, const short velocity, const short ms) {
     thread_start(run);
     printf("Started motor thread\n");
 }
+
 
 void mav_time(const short port, const short velocity, const short ms) {
     mav(port, velocity);

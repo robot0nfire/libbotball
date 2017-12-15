@@ -8,7 +8,7 @@
 */
 
 #include <kipr/botball.h>
-#include "include/servo.h"
+#include "servo.h"
 
 void ssp(short port, short position) {
     int oldPos = get_servo_position(port);
@@ -25,6 +25,7 @@ void ssp(short port, short position) {
     printf("Moved servo to position: %d\n", get_servo_position(port));
 }
 
+
 void ssp_stepwise(short port, short position, int stepsize, int sleep) {
     if(position > servoMaxTicks) {
         position = servoMaxTicks;
@@ -38,13 +39,15 @@ void ssp_stepwise(short port, short position, int stepsize, int sleep) {
 
     if(position > currentPosition) {
         while(position > currentPosition) {
-            currentPosition = ((int) (currentPosition + stepsize) > position) ? position : (currentPosition + stepsize);
+            currentPosition = ((int) (currentPosition + stepsize) > position) ?
+                              position : (currentPosition + stepsize);
             set_servo_position(port, currentPosition);
             msleep(sleep);
         }
     } else {
         while(position < currentPosition) {
-            currentPosition = ((int) (currentPosition - stepsize) < position) ? position : (currentPosition - stepsize);
+            currentPosition = ((int) (currentPosition - stepsize) < position) ?
+                              position : (currentPosition - stepsize);
             set_servo_position(port, currentPosition);
             msleep(sleep);
         }
@@ -52,6 +55,7 @@ void ssp_stepwise(short port, short position, int stepsize, int sleep) {
 
     printf("Moved servo to position: %d\n", get_servo_position(port));
 }
+
 
 void ssp_asym(short port1, short port2, short position) {
     if(position > servoMaxTicks) {
@@ -74,7 +78,12 @@ void ssp_asym(short port1, short port2, short position) {
     printf("Moved servoB to position: %d\n", get_servo_position(port2));
 }
 
-void ssp_stepwise_asym(short port1, short port2, short position, int stepsize, int sleep) {
+
+void ssp_stepwise_asym(short port1,
+                       short port2,
+                       short position,
+                       int stepsize,
+                       int sleep) {
     if(position > servoMaxTicks) {
         position = servoMaxTicks;
     } else if(position < servoMinTicks) {
@@ -93,14 +102,16 @@ void ssp_stepwise_asym(short port1, short port2, short position, int stepsize, i
 
     if(position > currentPosition) {
         while(position > currentPosition) {
-            currentPosition = ((int) (currentPosition + stepsize) > position) ? position : (currentPosition + stepsize);
+            currentPosition = ((int) (currentPosition + stepsize) > position) ?
+                              position : (currentPosition + stepsize);
             set_servo_position(port1, currentPosition);
             set_servo_position(port2, servoMaxTicks - currentPosition);
             msleep(sleep);
            }
     } else {
            while(position < currentPosition) {
-            currentPosition = ((int) (currentPosition - stepsize) < position) ? position : (currentPosition - stepsize);
+            currentPosition = ((int) (currentPosition - stepsize) < position) ?
+                              position : (currentPosition - stepsize);
             set_servo_position(port1, currentPosition);
             set_servo_position(port2, servoMaxTicks - currentPosition);
             msleep(sleep);
@@ -111,16 +122,19 @@ void ssp_stepwise_asym(short port1, short port2, short position, int stepsize, i
     printf("Moved servoB to position: %d\n", get_servo_position(port2));
 }
 
+
 void setServo0() {
     printf("Move Servo 0 to %d\n", servoProperties[0][1]);
 
     if(servoProperties[0][2] == -1 || servoProperties[0][3] == -1)
         ssp(0, servoProperties[0][1]);
     else
-        ssp_stepwise(0, servoProperties[0][1], servoProperties[0][2], servoProperties[0][3]);
+        ssp_stepwise(0, servoProperties[0][1], servoProperties[0][2],
+                     servoProperties[0][3]);
 
     servoProperties[0][0] = 0;
 }
+
 
 void setServo1() {
     printf("Move Servo 1 to %d\n", servoProperties[1][1]);
@@ -128,10 +142,12 @@ void setServo1() {
     if(servoProperties[1][2] == -1 || servoProperties[1][3] == -1)
         ssp(1, servoProperties[1][1]);
     else
-        ssp_stepwise(1, servoProperties[1][1], servoProperties[1][2], servoProperties[1][3]);
+        ssp_stepwise(1, servoProperties[1][1], servoProperties[1][2],
+                     servoProperties[1][3]);
 
     servoProperties[1][0] = 0;
 }
+
 
 void setServo2() {
     printf("Move Servo 2 to %d\n", servoProperties[2][1]);
@@ -139,10 +155,12 @@ void setServo2() {
     if(servoProperties[2][2] == -1 || servoProperties[2][3] == -1)
         ssp(2, servoProperties[2][1]);
     else
-        ssp_stepwise(2, servoProperties[2][1], servoProperties[2][2], servoProperties[2][3]);
+        ssp_stepwise(2, servoProperties[2][1], servoProperties[2][2],
+                     servoProperties[2][3]);
 
     servoProperties[2][0] = 0;
 }
+
 
 void setServo3() {
     printf("Move Servo 3 to %d\n", servoProperties[3][1]);
@@ -150,10 +168,12 @@ void setServo3() {
     if(servoProperties[3][2] == -1 || servoProperties[3][3] == -1)
         ssp(3, servoProperties[3][1]);
     else
-        ssp_stepwise(3, servoProperties[3][1], servoProperties[3][2], servoProperties[3][3]);
+        ssp_stepwise(3, servoProperties[3][1], servoProperties[3][2],
+                     servoProperties[3][3]);
 
     servoProperties[3][0] = 0;
 }
+
 
 void ssp_async(short port, short position) {
     if(position > servoMaxTicks) {
@@ -185,6 +205,7 @@ void ssp_async(short port, short position) {
     printf("Started Servo thread\n");
 }
 
+
 void ssp_stepwise_async(short port, short position, int stepsize, int sleep) {
     if(position > servoMaxTicks) {
         position = servoMaxTicks;
@@ -214,6 +235,7 @@ void ssp_stepwise_async(short port, short position, int stepsize, int sleep) {
     thread_start(run);
     printf("Started Servo thread\n");
 }
+
 
 void ssp_asym_async(short port1, short port2, short position) {
     wait_for_servo(port1);
@@ -267,7 +289,12 @@ void ssp_asym_async(short port1, short port2, short position) {
     printf("Started Servo threads\n");
 }
 
-void ssp_stepwise_asym_async(short port1, short port2, short position, int stepsize, int sleep) {
+
+void ssp_stepwise_asym_async(short port1,
+                             short port2,
+                             short position,
+                             int stepsize,
+                             int sleep) {
     wait_for_servo(port1);
     wait_for_servo(port2);
 

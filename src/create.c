@@ -9,10 +9,10 @@
 
 #include <kipr/botball.h>
 #include <math.h>
-#include "include/utils.h"
-#include "include/create.h"
-#include "include/create_codes.h"
-#include "include/ports.h"
+#include "utils.h"
+#include "create.h"
+#include "create_codes.h"
+#include "ports.h"
 
 void create_drives(const short velocity, const short radius) {
     create_write_byte(OI_DRIVE);
@@ -22,6 +22,7 @@ void create_drives(const short velocity, const short radius) {
     create_write_byte(LOW_BYTE(radius));
 }
 
+
 void create_drives_direct(const short velocity_l, const short velocity_r) {
     create_write_byte(OI_DRIVE_DIRECT);
     create_write_byte(HIGH_BYTE(velocity_r));
@@ -30,6 +31,7 @@ void create_drives_direct(const short velocity_l, const short velocity_r) {
     create_write_byte(LOW_BYTE(velocity_l));
 }
 
+
 void create_stop() {
     create_write_byte(OI_DRIVE_DIRECT);
     create_write_byte(HIGH_BYTE(0));
@@ -37,6 +39,7 @@ void create_stop() {
     create_write_byte(HIGH_BYTE(0));
     create_write_byte(LOW_BYTE(0));
 }
+
 
 void create_drives_straight(const short velocity, const short millimeters) {
     set_create_distance(0);
@@ -48,14 +51,17 @@ void create_drives_straight(const short velocity, const short millimeters) {
 
     create_drives_direct(velocity, velocity);
 
-    while(!float_close((float) millimeters, (float) (distance - start), 3) && !((distance - start) > millimeters)) {
+    while(!float_close((float) millimeters, (float) (distance - start), 3) &&
+          !((distance - start) > millimeters)) {
 
-        mod1 = 0.6 + pow((double) (millimeters - (distance - start)), 2) / pow(velocity, 2);
+        mod1 = 0.6 + pow((double) (millimeters - (distance - start)), 2) /
+                     pow(velocity, 2);
 
         if(mod1 >= 1) msleep(3);
         else {
             mod2 = 0.5 * mod1 + 0.5;
-            create_drives_direct((int) floor(velocity * mod2), (int) floor(velocity * mod2));
+            create_drives_direct((int) floor(velocity * mod2),
+                                 (int) floor(velocity * mod2));
             msleep(3);
         }
 
@@ -65,37 +71,38 @@ void create_drives_straight(const short velocity, const short millimeters) {
     create_stop();
 }
 
+
 void create_drives_time(const short velocity, const short milliseconds) {
     create_drives_direct(velocity, velocity);
     msleep(milliseconds);
     create_stop();
 }
 
+
 void create_spins_direct(const short velocity, const short direction) {
     create_drives(velocity, (direction > 0) ? -1 : 1);
 }
+
 
 void create_spins_clockwise(const short velocity) {
     create_spins_direct(velocity, 1);
 }
 
+
 void create_spins_counterclockwise(const short velocity) {
     create_spins_direct(velocity, -1);
 }
+
 
 void create_spins_degrees(const short velocity, const short angle) {
     double w = ((double) velocity) /  ((double) RADIUS);
     double timeToGoal = fabs(degToRad(angle) / w);
 
-    printf("v: %d\n", velocity);
-    printf("r: %d\n", RADIUS);
-    printf("w: %lf\n", w);
-    printf("ttg: %lf\n", timeToGoal);
-
     create_spins_direct(velocity, angle);
     msleep(timeToGoal * 1000);
     create_stop();
 }
+
 
 void create_drives_till_bump(const short velocity) {
     create_drives_direct(velocity, velocity);
@@ -105,7 +112,11 @@ void create_drives_till_bump(const short velocity) {
     create_stop();
 }
 
-void create_drives_till_et(const short velocity, const int milliseconds, const short port, const short threshold) {
+
+void create_drives_till_et(const short velocity,
+                           const int milliseconds,
+                           const short port,
+                           const short threshold) {
     create_drives_direct(velocity, velocity);
 
     int start = seconds();
@@ -122,10 +133,12 @@ void create_drives_till_et(const short velocity, const int milliseconds, const s
     create_stop();
 }
 
+
 void create_setup() {
     create_connect();
     create_write_byte(OI_FULL);
 }
+
 
 void create_shutdown() {
     stop();

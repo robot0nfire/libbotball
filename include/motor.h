@@ -55,87 +55,89 @@ static void wait_for_motor(short motor){
     }
 }
 
+
 /**
-* @brief This method lets the robot drive with two given velocities
-* @author Nico Kratky
+* @brief Turn each wheel at given velocities
 *
 * @param velocity_l Velocity at which the left motor will be moved
 * @param velocity_r Velocity at which the right motor will be moved
 */
 void drive_direct(const short velocity_l, const short velocity_r);
 
+
 /**
-* @brief This method lets the robot drive straight for a given duration
-* @author Nico Kratky
+* @brief Drive straight for a given duration
 *
-* @param velocity Velocity at which the motors will be moved
-* @param ms How long the robot will drive
+* @param velocity   Velocity at which the motors will be moved
+* @param ms         How long the robot will drive
 */
 void drive_straight(const short velocity, const short ms);
 
+
 /**
-* @brief This method lets the robot drive straight for a given distance
-* @author Nico Kratky
+* @brief Drive straight for a given distance
 *
 * @param velocity Velocity at which the motors will be moved
 * @param distance Distance the robot will drive in mm
 */
 void drive_distance(short velocity, const short distance);
 
+
 /**
-* @brief This method lets the robot drive straight until the et is triggered or the distance is covered
-* @author Nico Kratky
+* @brief Drive straight till the ET is triggerd of the given distance is reached
 *
-* @param velocity Velocity at which the motors will be moved
-* @param distance Distance the robot will drive in mm
-* @param port Port to which the et sensor is connected
-* @param threshold Threshold for the et sensor
+* @param velocity   Velocity at which the motors will be moved
+* @param distance   Distance the robot will drive in mm
+* @param port Port  to which the et sensor is connected
+* @param threshold  Threshold for the et sensor
 */
 void drive_till_et(short velocity, const short distance, const short port, const short threshold);
 
+
 /**
-* @brief This method lets the robot drive with two given velocities for a given duration
-* @author Nico Kratky
+* @brief Drive at two given velocities for a given duration
 *
 * @param velocity_l Velocity at which the left motor will be moved
 * @param velocity_r Velocity at which the right motor will be moved
-* @param ms How long the robot will drive
+* @param ms         How long the robot will drive
 */
 void drive(const short velocity_l, int velocity_r, const int ms);
 
+
 /**
-* @brief This method lets the robot follow a line for a given duration
-* @author Nico Kratky
+* @brief Follow a line for a given duration
 *
 * @param ms How long the robot will follow a line
 */
 void follow_line(const int ms);
 
+
 /**
-* @brief This method moves a motor to a given position
+* @brief Move the motor to a given position
 * smp stands for 'set motor position'
-* @author Nico Kratky
 *
-* @param port Port to which the motor is connected
-* @param velocity Speed at which the motor will move
-* @param position Position to which to motor should be moved
+* @param port       Port to which the motor is connected
+* @param velocity   Speed at which the motor will move
+* @param position   Position to which to motor should be moved
 */
 void smp(int port, const short velocity, const short position);
 
+
 /**
 * @brief This method turns for a given amount of degrees
-* @author Nico Leidenfrost
+* @brief Turn for a given amount of degrees
 *
-* @param velocity Speed at which the motors will move
-* @param deg Angle to which the robot will move
+* @param velocity   Speed at which the motors will move
+* @param deg        Angle to which the robot will move
 */
 void turn(short velocity, const short deg);
 
+
 /**
 * @brief This method moves motor 0 at a speed defined in motorProperties
-* @author Nico Kratky
 */
 void moveMotor0();
+
 
 /**
 * @brief This method moves motor 1 at a speed defined in motorProperties
@@ -143,11 +145,13 @@ void moveMotor0();
 */
 void moveMotor1();
 
+
 /**
 * @brief This method moves motor 2 at a speed defined in motorProperties
 * @author Nico Kratky
 */
 void moveMotor2();
+
 
 /**
 * @brief This method moves motor 3 at a speed defined in motorProperties
@@ -155,32 +159,32 @@ void moveMotor2();
 */
 void moveMotor3();
 
+
 /**
-* @brief This method moves a motor async
-* @author Nico Kratky
+* @brief Move a motor async
 *
-* @param port the port to which the motor is connected
-* @param velocity speed at which the motor will move
+* @param port       the port to which the motor is connected
+* @param velocity   speed at which the motor will move
 */
 void mav_async(const short port, const short velocity);
 
+
 /**
-* @brief This method moved a motor async for a given duration
-* @author Nico Kratky
+* @brief Move a motor async for a given duration
 *
-* @param port the port to which the motor is connected
-* @param velocity speed at which the motor will move
-* @param ms how long the motor will move
+* @param port       the port to which the motor is connected
+* @param velocity   speed at which the motor will move
+* @param ms         how long the motor will move
 */
 void mav_async_time(const short port, const short velocity, const short ms);
 
+
 /**
-* @brief This method moves a motor for a given duration
-* @author Nico Kratky
+* @brief Move a motor for a given duration
 *
-* @param port the port to which the motor is connected
-* @param velocity speed at which the motor will move
-* @param ms how long the motor will move
+* @param port       the port to which the motor is connected
+* @param velocity   speed at which the motor will move
+* @param ms         how long the motor will move
 */
 void mav_time(const short port, const short velocity, const short ms);
 
